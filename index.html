@@ -1234,16 +1234,6 @@ body {
         </table>
       </div>
 
-      <!-- VARIANCE & EXCEPTIONS -->
-      <div>
-        <div class="section-title" style="font-size:11px">
-          <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-          Variance & Exceptions
-        </div>
-        <div class="variance-list" id="varianceList">
-          <!-- Populated dynamically -->
-        </div>
-      </div>
     </div>
 
     <!-- MITIGATION ACTIONS -->
@@ -1942,29 +1932,7 @@ function renderReport(data) {
     <td>${totalBudget > 0 ? ((totalCommitted / totalBudget) * 100).toFixed(0) : 0}%</td>
   </tr>`;
 
-  // Variance List
-  const varList = document.getElementById('varianceList');
-  if (!d.variances || d.variances.length === 0) {
-    varList.innerHTML = `<div class="variance-item">
-      <span class="var-label">No variance / exception data available</span>
-      <div class="var-bar"><div class="var-fill" style="width:0%;background:var(--gray-300)"></div></div>
-      <span class="var-value" style="color:var(--gray-500)">—</span>
-      <span class="var-pct">—</span>
-    </div>`;
-  } else {
-    varList.innerHTML = d.variances.map(v => {
-      const color = getVarianceStatusColor(v.status);
-      const basePct = Math.abs(safeNum(v.pct, 0));
-      const fallbackWidth = Math.abs(v.category === 'schedule' ? safeNum(v.value, 0) * 5 : safeNum(v.value, 0));
-      const barW = Math.max(8, Math.min(basePct || fallbackWidth, 100));
-      return `<div class="variance-item">
-        <span class="var-label">${v.label}</span>
-        <div class="var-bar"><div class="var-fill" style="width:${barW}%;background:${color}"></div></div>
-        <span class="var-value" style="color:${color}">${v.valueText || '—'}</span>
-        <span class="var-pct">${formatVariancePct(v.pct)}</span>
-      </div>`;
-    }).join('');
-  }
+  // Variance & Exceptions section removed as requested.
 
   // Actions
   const actBody = document.getElementById('actionsBody');
