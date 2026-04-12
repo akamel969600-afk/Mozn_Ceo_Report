@@ -418,6 +418,127 @@ body {
 .status-pill.delayed { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 .status-pill.at-risk { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   MOCKUP VILLA CARD — VISUAL COMPLETE
+   ═══════════════════════════════════════════════════════════════ */
+.mockup-card {
+  padding: 12px;
+  background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+.mockup-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.mockup-card-title-wrap { display:flex; flex-direction:column; gap:2px; }
+.mockup-card-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+.mockup-card-subtitle {
+  font-size: 8.5px;
+  color: var(--gray-500);
+}
+.mockup-main {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.mockup-visual {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.mockup-donut {
+  width: 84px;
+  height: 84px;
+}
+.mockup-body { display:flex; flex-direction:column; gap:10px; }
+.mockup-progress-rows { display:flex; flex-direction:column; gap:8px; }
+.mockup-progress-row {
+  display:grid;
+  grid-template-columns: 64px 1fr 48px;
+  gap:8px;
+  align-items:center;
+}
+.mockup-progress-row .label {
+  font-size:8.5px;
+  font-weight:600;
+  color:var(--gray-600);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+.mockup-track {
+  width:100%;
+  height:8px;
+  background:var(--gray-200);
+  border-radius:999px;
+  overflow:hidden;
+}
+.mockup-track-fill {
+  height:100%;
+  border-radius:999px;
+}
+.mockup-track-fill.planned { background: linear-gradient(90deg, var(--blue-light) 0%, var(--blue) 100%); }
+.mockup-track-fill.actual { background: linear-gradient(90deg, var(--amber) 0%, #F59E0B 100%); }
+.mockup-progress-row .value {
+  font-size:9px;
+  font-weight:700;
+  color:var(--navy-deep);
+  text-align:right;
+}
+.mockup-meta-grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:8px;
+}
+.mockup-meta-item {
+  background: var(--white);
+  border:1px solid var(--gray-200);
+  border-radius:8px;
+  padding:8px;
+}
+.mockup-meta-item .meta-label {
+  font-size:7.8px;
+  color:var(--gray-500);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin-bottom:3px;
+  font-weight:600;
+}
+.mockup-meta-item .meta-value {
+  font-size:9.5px;
+  font-weight:700;
+  color:var(--navy);
+  line-height:1.35;
+}
+.mockup-meta-item .meta-value.negative { color: var(--red); }
+.mockup-exception {
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid var(--amber-border);
+  background:var(--amber-bg);
+  font-size:8.8px;
+  color:var(--gray-700);
+  line-height:1.45;
+}
+.mockup-exception strong { color: var(--navy); }
+@media screen and (max-width: 900px) {
+  .mockup-main { grid-template-columns: 1fr; }
+  .mockup-visual { justify-content:flex-start; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    MILESTONES TIMELINE — Enhanced with status & progress rings
    ═══════════════════════════════════════════════════════════════ */
@@ -565,45 +686,6 @@ body {
 }
 .ms-slip.negative { color: var(--red); background: var(--red-bg); }
 .ms-slip.positive { color: var(--green); background: var(--green-bg); }
-
-/* ═══════════════════════════════════════════════════════════════
-   DELAY SUMMARY TABLE
-   ═══════════════════════════════════════════════════════════════ */
-.delay-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: 9px;
-}
-.delay-table th {
-  background: var(--red);
-  color: var(--white);
-  padding: 5px 8px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-.delay-table th:first-child { border-radius: 5px 0 0 0; }
-.delay-table th:last-child { border-radius: 0 5px 0 0; }
-.delay-table td {
-  padding: 5px 8px;
-  border-bottom: 1px solid var(--gray-100);
-  color: var(--gray-700);
-  font-size: 9px;
-}
-.delay-table tr:nth-child(even) td { background: var(--red-bg); }
-.delay-table tr:last-child td { border-bottom: none; }
-.delay-table .delay-name { font-weight: 600; color: var(--navy); }
-.delay-table .slip-val {
-  font-weight: 700;
-  color: var(--red);
-}
-.delay-table .slip-val.ahead {
-  color: var(--green);
-}
-.delay-empty.hidden { display: none; }
 
 /* ═══════════════════════════════════════════════════════════════
    COST TABLE
@@ -982,16 +1064,56 @@ body {
       </div>
 
       <!-- MOCKUP VILLA SUMMARY -->
-      <div class="villa-summary" id="villaSummary">
-        <div class="villa-header">
-          <span class="villa-label">Mockup Villa</span>
+      <div class="mockup-card" id="villaSummary">
+        <div class="mockup-card-top">
+          <div class="mockup-card-title-wrap">
+            <span class="mockup-card-title">Mockup Villa</span>
+            <span class="mockup-card-subtitle">Focused view of current mockup completion</span>
+          </div>
           <span class="villa-status status-pill delayed" id="villaStatusPill">DELAYED</span>
         </div>
-        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Planned %</span><strong id="vPlanned">—</strong></div>
-        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Actual %</span><strong id="vActual">—</strong></div>
-        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Variance</span><span class="val-red" id="vVariance">—</span></div>
-        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Forecast Finish</span><strong id="vForecast">—</strong></div>
-        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;color:var(--gray-600)"><span>Recovery Finish</span><strong id="vRecovery">—</strong></div>
+
+        <div class="mockup-main">
+          <div class="mockup-visual">
+            <svg class="mockup-donut" viewBox="0 0 100 100" id="mockupDonut">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#E2E8F0" stroke-width="8"></circle>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#D97706" stroke-width="8" stroke-linecap="round"
+                transform="rotate(-90 50 50)" stroke-dasharray="0 238.76" id="mockupArc"></circle>
+              <text x="50" y="46" text-anchor="middle" font-size="18" font-weight="700" fill="#0B1929" font-family="DM Sans" id="mockupPct">—</text>
+              <text x="50" y="61" text-anchor="middle" font-size="8" fill="#64748B" font-family="DM Sans">COMPLETE</text>
+            </svg>
+          </div>
+
+          <div class="mockup-body">
+            <div class="mockup-progress-rows">
+              <div class="mockup-progress-row">
+                <span class="label">Planned</span>
+                <div class="mockup-track"><div class="mockup-track-fill planned" id="vPlannedBar" style="width:0%"></div></div>
+                <span class="value" id="vPlanned">—</span>
+              </div>
+              <div class="mockup-progress-row">
+                <span class="label">Actual</span>
+                <div class="mockup-track"><div class="mockup-track-fill actual" id="vActualBar" style="width:0%"></div></div>
+                <span class="value" id="vActual">—</span>
+              </div>
+            </div>
+
+            <div class="mockup-meta-grid">
+              <div class="mockup-meta-item">
+                <div class="meta-label">Completion Gap</div>
+                <div class="meta-value negative" id="vVariance">—</div>
+              </div>
+              <div class="mockup-meta-item">
+                <div class="meta-label">Forecast Finish</div>
+                <div class="meta-value" id="vForecast">—</div>
+              </div>
+            </div>
+
+            <div class="mockup-exception" id="vExceptionText">
+              <strong>Exception:</strong> Progress is tracking below plan and requires acceleration.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1034,30 +1156,6 @@ body {
     <div class="timeline-compact" id="timelineCompact">
       <!-- Populated dynamically -->
       <div class="timeline-track"><div class="timeline-track-fill" id="timelineTrackFill" style="width:0%"></div></div>
-    </div>
-
-    <!-- DELAY SUMMARY -->
-    <div class="section-title" style="margin-top:14px">
-      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-      Delay Summary
-    </div>
-
-    <table class="delay-table" id="delayTable">
-      <thead>
-        <tr>
-          <th>Milestone / Activity</th>
-          <th>Baseline Date</th>
-          <th>Forecast Date</th>
-          <th>Slippage</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody id="delayBody">
-        <!-- Populated dynamically — only delayed/at-risk items -->
-      </tbody>
-    </table>
-    <div class="delay-empty hidden" id="delayEmpty" style="text-align:center;padding:12px;font-size:9.5px;color:var(--green);font-weight:600;background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);">
-      No delayed milestones — all milestones on track or completed.
     </div>
 
     <div class="page-footer">
@@ -1125,7 +1223,6 @@ body {
             <tr>
               <th>Cost Group</th>
               <th>Budget (SAR)</th>
-              <th>CAC (SAR)</th>
               <th>Committed (SAR)</th>
               <th>Variance (SAR)</th>
               <th>Committed %</th>
@@ -1327,6 +1424,18 @@ function getStatusLabel(spi) {
   return { text: 'Delayed', cls: 'delayed' };
 }
 
+function getVarianceStatusColor(status) {
+  if (status === 'good') return 'var(--green)';
+  if (status === 'warning') return 'var(--amber)';
+  if (status === 'bad') return 'var(--red)';
+  return 'var(--gray-400)';
+}
+
+function formatVariancePct(pct) {
+  const n = safeNum(pct, 0);
+  return `${n > 0 ? '+' : ''}${n.toFixed(1)}%`;
+}
+
 /* Build key→value lookup from Sheet1 (Col A = key, Col B = value) */
 function buildLookup(data) {
   const map = {};
@@ -1471,13 +1580,11 @@ function transformAllSheets(sheets) {
       .map(r => {
         const keys = Object.keys(r);
         const budget = safeNum(r['Budget (SAR)'] || r[keys[1]] || '0');
-        const cac = safeNum(r['CAC (SAR)'] || r[keys[2]] || '0');
-        const committed = safeNum(r['Committed (SAR)'] || r[keys[3]] || '0');
-        const variance = safeNum(r['Variance (SAR)'] || r[keys[4]] || String(budget - committed));
+        const committed = safeNum(r['Committed (SAR)'] || r[keys[2]] || '0');
+        const variance = safeNum(r['Variance (SAR)'] || r[keys[3]] || String(budget - committed));
         return {
           group:     r['Cost Group'] || r[keys[0]] || '—',
           budget:    budget,
-          cac:       cac,
           committed: committed,
           variance:  variance
         };
@@ -1494,17 +1601,89 @@ function transformAllSheets(sheets) {
       })
       .map(r => {
         const keys = Object.keys(r);
-        const val = safeNum(r['Variance (SAR)'] || r[keys[1]] || '0');
-        let pctRaw = r['Variance %'] || r[keys[2]] || '0';
+        const label = r['Item'] || r[keys[0]] || '—';
+
+        const rawValue =
+          r['Variance (SAR)'] ??
+          r['Variance Value'] ??
+          r['Value'] ??
+          r[keys[1]] ??
+          '0';
+
+        let valueText = String(rawValue ?? '').trim();
+        let valueNum = safeNum(rawValue, 0);
+
+        let pctRaw = r['Variance %'] ?? r['Percent'] ?? r[keys[2]] ?? '0';
         let pct = safeNum(pctRaw);
-        // Handle decimal export from Google Sheets (0.234 → 23.4%)
-        if (Math.abs(pct) > 0 && Math.abs(pct) <= 1 && !pctRaw.includes('%')) pct = pct * 100;
-        const typ = (r['Type'] || r[keys[3]] || '').toLowerCase();
+        if (Math.abs(pct) > 0 && Math.abs(pct) <= 1 && !String(pctRaw).includes('%')) pct = pct * 100;
+
+        const typeRaw = String(r['Type'] || r['Direction'] || r[keys[3]] || '').toLowerCase();
+        const unitRaw = String(r['Unit'] || r['Measure'] || '').toLowerCase();
+        const categoryRaw = String(r['Category'] || '').toLowerCase();
+        const labelRaw = label.toLowerCase();
+
+        const isSchedule =
+          categoryRaw.includes('schedule') ||
+          unitRaw.includes('day') ||
+          labelRaw.includes('schedule') ||
+          labelRaw.includes('day') ||
+          labelRaw.includes('delay') ||
+          labelRaw.includes('slip') ||
+          labelRaw.includes('spi');
+
+        const isPercentLike =
+          unitRaw.includes('%') ||
+          unitRaw.includes('percent') ||
+          labelRaw.includes('spi') ||
+          (Math.abs(valueNum) <= 100 && valueText.includes('%'));
+
+        const isCurrency =
+          unitRaw.includes('sar') ||
+          unitRaw.includes('cost') ||
+          unitRaw.includes('budget') ||
+          unitRaw.includes('currency') ||
+          labelRaw.includes('cost') ||
+          labelRaw.includes('budget') ||
+          labelRaw.includes('commercial') ||
+          labelRaw.includes('variation');
+
+        let displayValue = '';
+        if (valueText === '' || valueText === '0') {
+          if (isSchedule) displayValue = `${valueNum > 0 ? '+' : ''}${valueNum.toFixed(0)} Days`;
+          else if (isPercentLike) displayValue = `${valueNum > 0 ? '+' : ''}${valueNum.toFixed(2)}`;
+          else if (isCurrency) displayValue = `${valueNum >= 0 ? '+' : ''}${formatSAR(valueNum)}`;
+          else displayValue = `${valueNum > 0 ? '+' : ''}${valueNum.toFixed(1)}`;
+        } else {
+          if (isCurrency) displayValue = `${valueNum >= 0 ? '+' : ''}${formatSAR(valueNum)}`;
+          else if (isSchedule && !/day/i.test(valueText)) displayValue = `${valueNum > 0 ? '+' : ''}${valueNum.toFixed(0)} Days`;
+          else displayValue = valueText;
+        }
+
+        const isGoodExplicit = typeRaw === 'positive' || typeRaw === 'good' || typeRaw === 'favorable';
+        const isBadExplicit = typeRaw === 'negative' || typeRaw === 'bad' || typeRaw === 'unfavorable';
+
+        let status = 'neutral';
+        if (isGoodExplicit) status = 'good';
+        else if (isBadExplicit) status = 'bad';
+        else if (isSchedule) {
+          if (labelRaw.includes('spi')) {
+            status = valueNum >= 1 ? 'good' : valueNum >= 0.95 ? 'warning' : 'bad';
+          } else {
+            status = valueNum <= 0 ? 'good' : valueNum <= 5 ? 'warning' : 'bad';
+          }
+        } else if (isCurrency) {
+          status = valueNum <= 0 ? 'good' : valueNum <= 5 ? 'warning' : 'bad';
+        } else {
+          status = valueNum > 0 ? 'good' : valueNum < 0 ? 'bad' : 'neutral';
+        }
+
         return {
-          label: r['Item'] || r[keys[0]] || '—',
-          value: val,
-          pct:   pct,
-          type:  typ === 'positive' ? 'positive' : 'negative'
+          label,
+          value: valueNum,
+          valueText: displayValue,
+          pct,
+          status,
+          category: isSchedule ? 'schedule' : (isCurrency ? 'cost' : 'general')
         };
       });
   }
@@ -1616,16 +1795,41 @@ function renderReport(data) {
   document.getElementById('gForecast').textContent = d.project.forecastFinish;
   document.getElementById('gVariance').textContent = d.project.scheduleVariance + ' days';
 
-  // Mockup Villa
-  document.getElementById('vPlanned').textContent = d.mockupVilla.plannedPct.toFixed(1) + '%';
-  document.getElementById('vActual').textContent = d.mockupVilla.actualPct.toFixed(1) + '%';
-  document.getElementById('vVariance').textContent = d.mockupVilla.variance.toFixed(1) + '%';
-  document.getElementById('vForecast').textContent = d.mockupVilla.forecastFinish;
-  document.getElementById('vRecovery').textContent = d.mockupVilla.recoveryFinish;
-  const vStatus = getStatusLabel(d.mockupVilla.actualPct / Math.max(d.mockupVilla.plannedPct, 1));
+  // Mockup Villa — redesigned visual card
+  const plannedMockup = safeNum(d.mockupVilla.plannedPct, 0);
+  const actualMockup = safeNum(d.mockupVilla.actualPct, 0);
+  const mockupGap = +(actualMockup - plannedMockup).toFixed(1);
+  const mockupArc = document.getElementById('mockupArc');
+  const mockupCirc = 238.76;
+  const mockupArcLen = Math.max(0, Math.min(actualMockup, 100)) / 100 * mockupCirc;
+  const mockupColor = actualMockup >= plannedMockup ? '#16A34A' : actualMockup >= plannedMockup * 0.9 ? '#D97706' : '#DC2626';
+  mockupArc.setAttribute('stroke-dasharray', `${mockupArcLen.toFixed(2)} ${mockupCirc}`);
+  mockupArc.setAttribute('stroke', mockupColor);
+  document.getElementById('mockupPct').textContent = actualMockup.toFixed(1) + '%';
+  document.getElementById('vPlanned').textContent = plannedMockup.toFixed(1) + '%';
+  document.getElementById('vActual').textContent = actualMockup.toFixed(1) + '%';
+  document.getElementById('vPlannedBar').style.width = Math.max(0, Math.min(plannedMockup, 100)) + '%';
+  document.getElementById('vActualBar').style.width = Math.max(0, Math.min(actualMockup, 100)) + '%';
+  document.getElementById('vVariance').textContent = `${mockupGap > 0 ? '+' : ''}${mockupGap.toFixed(1)}% vs plan`;
+  document.getElementById('vVariance').className = 'meta-value ' + (mockupGap < 0 ? 'negative' : '');
+  document.getElementById('vForecast').textContent = d.mockupVilla.forecastFinish || '—';
+  const exceptionText = document.getElementById('vExceptionText');
+  if (mockupGap < 0) {
+    exceptionText.innerHTML = `<strong>Exception:</strong> Mockup villa is ${Math.abs(mockupGap).toFixed(1)}% below plan. Recovery finish is ${d.mockupVilla.recoveryFinish || 'under review'}.`;
+    exceptionText.style.background = 'var(--red-bg)';
+    exceptionText.style.borderColor = 'var(--red-border)';
+  } else if (mockupGap === 0) {
+    exceptionText.innerHTML = `<strong>Update:</strong> Mockup villa is aligned with plan. Focus on maintaining current productivity.`;
+    exceptionText.style.background = 'var(--sky-pale)';
+    exceptionText.style.borderColor = 'var(--sky)';
+  } else {
+    exceptionText.innerHTML = `<strong>Positive variance:</strong> Mockup villa is ${mockupGap.toFixed(1)}% ahead of plan.`;
+    exceptionText.style.background = 'var(--green-bg)';
+    exceptionText.style.borderColor = 'var(--green-border)';
+  }
   const vPill = document.getElementById('villaStatusPill');
-  vPill.textContent = d.mockupVilla.status.toUpperCase().replace('-', ' ');
-  vPill.className = 'villa-status status-pill ' + d.mockupVilla.status;
+  vPill.textContent = (d.mockupVilla.status || 'at-risk').toUpperCase().replace('-', ' ');
+  vPill.className = 'villa-status status-pill ' + (d.mockupVilla.status || 'at-risk');
 
   // Work Packages
   const wpBody = document.getElementById('wpBody');
@@ -1719,14 +1923,13 @@ function renderReport(data) {
 
   // Cost Breakdown
   const cbBody = document.getElementById('costBreakdownBody');
-  let totalBudget = 0, totalCAC = 0, totalCommitted = 0, totalVar = 0;
-  d.costBreakdown.forEach(c => { totalBudget += c.budget; totalCAC += c.cac; totalCommitted += c.committed; totalVar += c.variance; });
+  let totalBudget = 0, totalCommitted = 0, totalVar = 0;
+  d.costBreakdown.forEach(c => { totalBudget += c.budget; totalCommitted += c.committed; totalVar += c.variance; });
   cbBody.innerHTML = d.costBreakdown.map(c => {
     const cPct = c.budget > 0 ? ((c.committed / c.budget) * 100).toFixed(0) : '0';
     return `<tr>
       <td style="font-weight:600;color:var(--navy)">${c.group}</td>
       <td>${formatSAR(c.budget)}</td>
-      <td>${c.cac > 0 ? formatSAR(c.cac) : '—'}</td>
       <td>${formatSAR(c.committed)}</td>
       <td style="color:${c.variance >= 0 ? 'var(--green)' : 'var(--red)'};font-weight:600">${c.variance >= 0 ? '+' : ''}${formatSAR(c.variance)}</td>
       <td>${cPct}%</td>
@@ -1734,77 +1937,34 @@ function renderReport(data) {
   }).join('') + `<tr class="total-row">
     <td>TOTAL</td>
     <td>${formatSAR(totalBudget)}</td>
-    <td>${totalCAC > 0 ? formatSAR(totalCAC) : '—'}</td>
     <td>${formatSAR(totalCommitted)}</td>
     <td style="color:${totalVar >= 0 ? 'var(--green)' : 'var(--red)'}">${totalVar >= 0 ? '+' : ''}${formatSAR(totalVar)}</td>
     <td>${totalBudget > 0 ? ((totalCommitted / totalBudget) * 100).toFixed(0) : 0}%</td>
   </tr>`;
 
-  // Delay Summary — filter milestones + work packages that are delayed or at-risk
-  const delayBody = document.getElementById('delayBody');
-  const delayEmpty = document.getElementById('delayEmpty');
-  const delayedItems = [];
-
-  // From milestones
-  d.milestones.forEach(ms => {
-    const st = ms.status.toLowerCase();
-    if (st === 'delayed' || st === 'at-risk' || st === 'at risk') {
-      delayedItems.push({
-        name: ms.label,
-        baseline: ms.baseline,
-        forecast: ms.actual || ms.forecast,
-        slip: ms.slip,
-        status: st
-      });
-    }
-  });
-
-  // From work packages
-  d.workPackages.forEach(wp => {
-    const st = wp.status.toLowerCase();
-    if (st === 'delayed' || st === 'at-risk') {
-      delayedItems.push({
-        name: wp.name,
-        baseline: '—',
-        forecast: wp.forecast,
-        slip: null,
-        status: st
-      });
-    }
-  });
-
-  if (delayedItems.length > 0) {
-    document.getElementById('delayTable').style.display = '';
-    delayEmpty.classList.add('hidden');
-    delayBody.innerHTML = delayedItems.map(di => {
-      const statusCls = di.status.includes('delay') ? 'delayed' : 'at-risk';
-      const slipText = di.slip !== null ? `${di.slip > 0 ? '+' : ''}${di.slip}d` : '—';
-      const slipCls = di.slip !== null && di.slip < 0 ? '' : 'ahead';
-      return `<tr>
-        <td class="delay-name">${di.name}</td>
-        <td>${di.baseline}</td>
-        <td>${di.forecast}</td>
-        <td class="slip-val ${slipCls}">${slipText}</td>
-        <td><span class="status-pill ${statusCls}">${statusCls.replace('-', ' ').toUpperCase()}</span></td>
-      </tr>`;
-    }).join('');
-  } else {
-    document.getElementById('delayTable').style.display = 'none';
-    delayEmpty.classList.remove('hidden');
-  }
-
   // Variance List
   const varList = document.getElementById('varianceList');
-  varList.innerHTML = d.variances.map(v => {
-    const isPos = v.type === 'positive';
-    const barW = Math.min(Math.abs(v.pct), 100);
-    return `<div class="variance-item">
-      <span class="var-label">${v.label}</span>
-      <div class="var-bar"><div class="var-fill" style="width:${barW}%;background:${isPos ? 'var(--green)' : 'var(--red)'}"></div></div>
-      <span class="var-value" style="color:${isPos ? 'var(--green)' : 'var(--red)'}">${isPos ? '+' : ''}${formatSAR(v.value)}</span>
-      <span class="var-pct">${v.pct > 0 ? '+' : ''}${v.pct.toFixed(1)}%</span>
+  if (!d.variances || d.variances.length === 0) {
+    varList.innerHTML = `<div class="variance-item">
+      <span class="var-label">No variance / exception data available</span>
+      <div class="var-bar"><div class="var-fill" style="width:0%;background:var(--gray-300)"></div></div>
+      <span class="var-value" style="color:var(--gray-500)">—</span>
+      <span class="var-pct">—</span>
     </div>`;
-  }).join('');
+  } else {
+    varList.innerHTML = d.variances.map(v => {
+      const color = getVarianceStatusColor(v.status);
+      const basePct = Math.abs(safeNum(v.pct, 0));
+      const fallbackWidth = Math.abs(v.category === 'schedule' ? safeNum(v.value, 0) * 5 : safeNum(v.value, 0));
+      const barW = Math.max(8, Math.min(basePct || fallbackWidth, 100));
+      return `<div class="variance-item">
+        <span class="var-label">${v.label}</span>
+        <div class="var-bar"><div class="var-fill" style="width:${barW}%;background:${color}"></div></div>
+        <span class="var-value" style="color:${color}">${v.valueText || '—'}</span>
+        <span class="var-pct">${formatVariancePct(v.pct)}</span>
+      </div>`;
+    }).join('');
+  }
 
   // Actions
   const actBody = document.getElementById('actionsBody');
