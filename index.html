@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOZN AL SAFA — D-Level Executive Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CSS VARIABLES & RESET
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --navy-deep: #0B1929;
+  --navy: #122B47;
+  --navy-mid: #1B3A5C;
+  --steel: #2E5A88;
+  --blue: #3A7BD5;
+  --blue-light: #5B9AE8;
+  --sky: #D6E8F7;
+  --sky-pale: #EAF2FA;
+  --ice: #F4F8FC;
+  --white: #FFFFFF;
+  --gray-50: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-300: #CBD5E1;
+  --gray-400: #94A3B8;
+  --gray-500: #64748B;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1E293B;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --red-border: #FECACA;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --amber-border: #FDE68A;
+  --green: #16A34A;
+  --green-bg: #F0FDF4;
+  --green-border: #BBF7D0;
+  --gold: #C9A84C;
+  --shadow-sm: 0 1px 2px rgba(11,25,41,0.04);
+  --shadow-md: 0 2px 8px rgba(11,25,41,0.06), 0 1px 3px rgba(11,25,41,0.04);
+  --shadow-lg: 0 4px 16px rgba(11,25,41,0.08), 0 2px 6px rgba(11,25,41,0.04);
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-700);
+  font-size: 11px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORT CONTAINER — A4 2-PAGE LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.report-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.page {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 28px 32px 24px;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 16px;
+}
+
+.header-left { display: flex; align-items: center; gap: 16px; }
+
+.header-logo {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.header-title h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--navy-deep);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.header-title .subtitle {
+  font-size: 10px;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 2px;
+}
+
+.header-right {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-meta {
+  font-size: 9.5px;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+.header-meta strong { color: var(--gray-700); font-weight: 600; }
+
+.btn-refresh {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-refresh:hover { background: var(--steel); transform: translateY(-1px); }
+.btn-refresh svg { width: 12px; height: 12px; }
+.btn-refresh.loading svg { animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════════════════
+   EXECUTIVE SUMMARY STRIP
+   ═══════════════════════════════════════════════════════════════ */
+.exec-strip {
+  background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.exec-strip .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  flex-shrink: 0;
+}
+.exec-strip .status-badge.critical { background: rgba(220,38,38,0.2); color: #FCA5A5; border: 1px solid rgba(220,38,38,0.3); }
+.exec-strip .status-badge.caution { background: rgba(217,119,6,0.2); color: #FDE68A; border: 1px solid rgba(217,119,6,0.3); }
+.exec-strip .status-badge.on-track { background: rgba(22,163,74,0.2); color: #86EFAC; border: 1px solid rgba(22,163,74,0.3); }
+
+.exec-strip .exec-text {
+  color: rgba(255,255,255,0.85);
+  font-size: 10.5px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.exec-strip .exec-text strong { color: var(--white); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════
+   KPI CARDS
+   ═══════════════════════════════════════════════════════════════ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 10px 10px 8px;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s;
+}
+.kpi-card:hover { border-color: var(--blue-light); box-shadow: var(--shadow-md); }
+.kpi-card .kpi-label {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gray-500);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.kpi-card .kpi-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-deep);
+  line-height: 1.2;
+}
+.kpi-card .kpi-value.date-val { font-size: 11px; font-weight: 600; }
+.kpi-card .kpi-trend {
+  font-size: 8px;
+  margin-top: 3px;
+  font-weight: 600;
+}
+.kpi-card .kpi-trend.negative { color: var(--red); }
+.kpi-card .kpi-trend.positive { color: var(--green); }
+.kpi-card .kpi-trend.neutral { color: var(--gray-400); }
+
+.kpi-card.highlight {
+  background: var(--sky-pale);
+  border-color: var(--blue-light);
+}
+
+.kpi-card .kpi-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.kpi-dot.red { background: var(--red); }
+.kpi-dot.amber { background: var(--amber); }
+.kpi-dot.green { background: var(--green); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION TITLES
+   ═══════════════════════════════════════════════════════════════ */
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 13px;
+  color: var(--navy);
+  font-weight: 400;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .section-icon {
+  width: 20px; height: 20px;
+  background: var(--sky-pale);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+}
+.section-title .section-icon svg { width: 12px; height: 12px; color: var(--steel); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCHEDULE GAUGE
+   ═══════════════════════════════════════════════════════════════ */
+.gauge-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+
+.gauge-svg { width: 80px; height: 80px; flex-shrink: 0; }
+
+.gauge-info { flex: 1; }
+.gauge-info .gauge-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+.gauge-info .gauge-stat {
+  display: flex; justify-content: space-between;
+  font-size: 9.5px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-600);
+}
+.gauge-info .gauge-stat:last-child { border-bottom: none; }
+.gauge-info .gauge-stat strong { color: var(--navy-deep); font-weight: 600; }
+.gauge-info .gauge-stat .val-red { color: var(--red); font-weight: 700; }
+.gauge-info .gauge-stat .val-green { color: var(--green); font-weight: 700; }
+.gauge-info .gauge-stat .val-amber { color: var(--amber); font-weight: 700; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOCKUP VILLA & WORK PACKAGES
+   ═══════════════════════════════════════════════════════════════ */
+.villa-summary {
+  padding: 12px;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+
+.villa-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.villa-header .villa-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.villa-header .villa-status {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 9px;
+}
+.wp-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 5px 8px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.wp-table th:first-child { border-radius: 5px 0 0 0; }
+.wp-table th:last-child { border-radius: 0 5px 0 0; }
+.wp-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  font-size: 9px;
+}
+.wp-table tr:nth-child(even) td { background: var(--gray-50); }
+.wp-table tr:last-child td { border-bottom: none; }
+.wp-table .pkg-name { font-weight: 600; color: var(--navy); }
+
+.progress-bar {
+  width: 60px; height: 5px;
+  background: var(--gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.progress-bar .fill { height: 100%; border-radius: 3px; }
+.fill.green { background: var(--green); }
+.fill.amber { background: var(--amber); }
+.fill.red { background: var(--red); }
+.fill.blue { background: var(--blue); }
+
+.status-pill {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 8px;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.status-pill.on-track { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.status-pill.delayed { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.status-pill.at-risk { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MILESTONES TIMELINE
+   ═══════════════════════════════════════════════════════════════ */
+.timeline-compact {
+  display: flex;
+  gap: 0;
+  background: var(--gray-50);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+}
+.timeline-item {
+  flex: 1;
+  padding: 10px 8px;
+  text-align: center;
+  border-right: 1px solid var(--gray-200);
+  position: relative;
+}
+.timeline-item:last-child { border-right: none; }
+.timeline-item .ms-label {
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.timeline-item .ms-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin: 0 auto 6px;
+  border: 2px solid;
+}
+.ms-dot.completed { background: var(--green); border-color: var(--green); }
+.ms-dot.on-track { background: var(--white); border-color: var(--blue); }
+.ms-dot.delayed { background: var(--red); border-color: var(--red); }
+.ms-dot.upcoming { background: var(--white); border-color: var(--gray-300); }
+
+.timeline-item .ms-baseline {
+  font-size: 8.5px;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+.timeline-item .ms-forecast {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.timeline-item .ms-slip {
+  font-size: 8px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.ms-slip.negative { color: var(--red); }
+.ms-slip.positive { color: var(--green); }
+
+/* ═══════════════════════════════════════════════════════════════
+   COST TABLE
+   ═══════════════════════════════════════════════════════════════ */
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cost-card {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 10px;
+  text-align: center;
+}
+.cost-card .cost-label {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--gray-500);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.cost-card .cost-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy-deep);
+}
+.cost-card .cost-sub {
+  font-size: 8px;
+  color: var(--gray-400);
+  margin-top: 2px;
+}
+
+.cost-breakdown {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 9px;
+}
+.cost-breakdown th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 5px 8px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cost-breakdown th:first-child { border-radius: 5px 0 0 0; }
+.cost-breakdown th:last-child { border-radius: 0 5px 0 0; }
+.cost-breakdown td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.cost-breakdown tr:nth-child(even) td { background: var(--gray-50); }
+.cost-breakdown .total-row td {
+  font-weight: 700;
+  background: var(--sky-pale) !important;
+  color: var(--navy-deep);
+  border-top: 2px solid var(--navy);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VARIANCE BARS
+   ═══════════════════════════════════════════════════════════════ */
+.variance-list { display: flex; flex-direction: column; gap: 6px; }
+.variance-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--gray-50);
+  border-radius: 6px;
+  border: 1px solid var(--gray-200);
+  font-size: 9px;
+}
+.variance-item .var-label { flex: 1; font-weight: 500; color: var(--gray-600); }
+.variance-item .var-value { font-weight: 700; min-width: 70px; text-align: right; }
+.variance-item .var-pct { font-size: 8px; color: var(--gray-400); min-width: 40px; text-align: right; }
+.var-bar {
+  width: 50px; height: 5px;
+  background: var(--gray-200);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.var-bar .var-fill { height: 100%; border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MITIGATION ACTIONS
+   ═══════════════════════════════════════════════════════════════ */
+.actions-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 9px;
+}
+.actions-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 5px 8px;
+  font-weight: 600;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+.actions-table th:first-child { border-radius: 5px 0 0 0; }
+.actions-table th:last-child { border-radius: 0 5px 0 0; }
+.actions-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.actions-table tr:nth-child(even) td { background: var(--gray-50); }
+
+/* ═══════════════════════════════════════════════════════════════
+   EXECUTIVE INSIGHT
+   ═══════════════════════════════════════════════════════════════ */
+.insight-box {
+  background: linear-gradient(135deg, var(--sky-pale) 0%, var(--ice) 100%);
+  border: 1px solid var(--sky);
+  border-left: 4px solid var(--steel);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 10px 14px;
+  font-size: 9.5px;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+.insight-box strong { color: var(--navy); }
+.insight-box ul {
+  margin: 4px 0 0 14px;
+  list-style: none;
+}
+.insight-box ul li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 2px;
+}
+.insight-box ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--steel);
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE FOOTER
+   ═══════════════════════════════════════════════════════════════ */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--gray-200);
+  margin-top: 12px;
+  font-size: 8px;
+  color: var(--gray-400);
+}
+.page-footer .confidential {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--red);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOADING STATE
+   ═══════════════════════════════════════════════════════════════ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.4s;
+}
+.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.loading-spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+.loading-text { font-size: 12px; color: var(--gray-500); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA STATUS INDICATOR
+   ═══════════════════════════════════════════════════════════════ */
+.data-status {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 9px;
+  color: var(--gray-500);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 100;
+}
+.data-status .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.data-status .dot.live { background: var(--green); }
+.data-status .dot.offline { background: var(--amber); }
+.data-status .dot.error { background: var(--red); }
+
+/* ═══════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+  body { background: white; font-size: 10px; }
+  .report-wrapper { padding: 0; max-width: 100%; }
+  .page {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  .page:last-child { page-break-after: auto; }
+  .btn-refresh { display: none !important; }
+  .loading-overlay { display: none !important; }
+  .data-status { display: none !important; }
+  .kpi-card:hover { box-shadow: none; border-color: var(--gray-200); }
+  .exec-strip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .wp-table th, .cost-breakdown th, .actions-table th {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr; }
+  .cost-grid { grid-template-columns: repeat(2, 1fr); }
+  .timeline-compact { flex-wrap: wrap; }
+  .timeline-item { flex: 0 0 33.33%; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading executive report data…</div>
+</div>
+
+<!-- DATA STATUS -->
+<div class="data-status" id="dataStatus">
+  <span class="dot offline" id="statusDot"></span>
+  <span id="statusText">Connecting…</span>
+</div>
+
+<div class="report-wrapper">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE 1 — SCHEDULE & PROJECT OVERVIEW
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="page" id="page1">
+
+    <!-- HEADER -->
+    <div class="report-header">
+      <div class="header-left">
+        <div class="header-logo">M</div>
+        <div class="header-title">
+          <h1 id="projectName">MOZN AL SAFA — 22 Villas</h1>
+          <div class="subtitle">D-Level Executive Report · Schedule & Cost Performance</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-meta">
+          <div>Report Period: <strong id="reportPeriod">—</strong></div>
+          <div>Data Date: <strong id="dataDate">—</strong></div>
+        </div>
+        <button class="btn-refresh" id="btnRefresh" onclick="refreshData()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY STRIP -->
+    <div class="exec-strip" id="execStrip">
+      <span class="status-badge critical" id="overallBadge">AT RISK</span>
+      <span class="exec-text" id="execSummary">
+        Project is <strong>behind schedule</strong> with forecast delay. Mockup villa progress requires acceleration. Cost performance within tolerance. Immediate contractor mobilization actions required.
+      </span>
+    </div>
+
+    <!-- TOP KPI CARDS -->
+    <div class="kpi-grid" id="kpiGrid">
+      <div class="kpi-card">
+        <div class="kpi-label">Project Start</div>
+        <div class="kpi-value date-val" id="kpiStart">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Planned Finish</div>
+        <div class="kpi-value date-val" id="kpiPlannedFinish">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Forecast Finish</div>
+        <div class="kpi-value date-val" id="kpiForecastFinish">—</div>
+        <div class="kpi-trend negative" id="kpiFinishTrend">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Schedule Var.</div>
+        <div class="kpi-value" id="kpiSV">—</div>
+        <div class="kpi-trend" id="kpiSVTrend">—</div>
+      </div>
+      <div class="kpi-card highlight">
+        <div class="kpi-label">SPI</div>
+        <div class="kpi-value" id="kpiSPI">—</div>
+        <div class="kpi-trend" id="kpiSPITrend">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Planned %</div>
+        <div class="kpi-value" id="kpiPlannedPct">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Actual %</div>
+        <div class="kpi-value" id="kpiActualPct">—</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Delay Status</div>
+        <div class="kpi-value" id="kpiDelayStatus">—</div>
+      </div>
+    </div>
+
+    <!-- SCHEDULE SECTION -->
+    <div class="section-title">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+      Schedule Performance
+    </div>
+
+    <div class="two-col">
+      <!-- OVERALL PROJECT GAUGE -->
+      <div class="gauge-container" id="overallGauge">
+        <svg class="gauge-svg" viewBox="0 0 100 100" id="gaugeOverall">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#E2E8F0" stroke-width="8" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#3A7BD5" stroke-width="8" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" id="gaugeArc" stroke-linecap="round"/>
+          <text x="50" y="48" text-anchor="middle" font-size="16" font-weight="700" fill="#0B1929" font-family="DM Sans" id="gaugeLabel">—</text>
+          <text x="50" y="60" text-anchor="middle" font-size="7" fill="#94A3B8" font-family="DM Sans">ACTUAL %</text>
+        </svg>
+        <div class="gauge-info">
+          <div class="gauge-title">Overall Project</div>
+          <div class="gauge-stat"><span>Planned %</span><strong id="gPlanned">—</strong></div>
+          <div class="gauge-stat"><span>Actual %</span><strong id="gActual">—</strong></div>
+          <div class="gauge-stat"><span>SPI</span><strong id="gSPI">—</strong></div>
+          <div class="gauge-stat"><span>Forecast Finish</span><strong id="gForecast">—</strong></div>
+          <div class="gauge-stat"><span>Variance</span><span class="val-red" id="gVariance">—</span></div>
+        </div>
+      </div>
+
+      <!-- MOCKUP VILLA SUMMARY -->
+      <div class="villa-summary" id="villaSummary">
+        <div class="villa-header">
+          <span class="villa-label">Mockup Villa</span>
+          <span class="villa-status status-pill delayed" id="villaStatusPill">DELAYED</span>
+        </div>
+        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Planned %</span><strong id="vPlanned">—</strong></div>
+        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Actual %</span><strong id="vActual">—</strong></div>
+        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Variance</span><span class="val-red" id="vVariance">—</span></div>
+        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;border-bottom:1px solid var(--gray-200);color:var(--gray-600)"><span>Forecast Finish</span><strong id="vForecast">—</strong></div>
+        <div class="gauge-stat" style="font-size:9.5px;padding:3px 0;color:var(--gray-600)"><span>Recovery Finish</span><strong id="vRecovery">—</strong></div>
+      </div>
+    </div>
+
+    <!-- WORK PACKAGES TABLE -->
+    <div class="section-title" style="margin-top:4px">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+      Mockup Villa — Key Work Packages
+    </div>
+
+    <table class="wp-table" id="wpTable">
+      <thead>
+        <tr>
+          <th>Work Package</th>
+          <th>Progress</th>
+          <th>Forecast Finish</th>
+          <th>Recovery Finish</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="wpBody">
+        <!-- Populated dynamically -->
+      </tbody>
+    </table>
+
+    <!-- MILESTONES -->
+    <div class="section-title" style="margin-top:14px">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+      Key Milestones
+    </div>
+
+    <div class="timeline-compact" id="timelineCompact">
+      <!-- Populated dynamically -->
+    </div>
+
+    <div class="page-footer">
+      <span class="confidential">Confidential — For Internal Use Only</span>
+      <span>MOZN AL SAFA · DAR Al Riyadh Group · Page 1 of 2</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE 2 — COST, VARIANCE, ACTIONS
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="page" id="page2">
+
+    <div class="report-header" style="padding-bottom:10px;margin-bottom:14px;border-bottom:2px solid var(--navy)">
+      <div class="header-left">
+        <div class="header-logo" style="width:32px;height:32px;font-size:14px;border-radius:8px">M</div>
+        <div class="header-title">
+          <h1 style="font-size:16px">Cost Performance & Executive Actions</h1>
+          <div class="subtitle">Page 2 · Financial Summary & Risk Mitigation</div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div>Report Period: <strong id="reportPeriod2">—</strong></div>
+      </div>
+    </div>
+
+    <!-- COST KPI CARDS -->
+    <div class="section-title">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+      Cost Performance Summary
+    </div>
+
+    <div class="cost-grid" id="costGrid">
+      <div class="cost-card">
+        <div class="cost-label">Baseline Budget (V00)</div>
+        <div class="cost-value" id="costBaseline">—</div>
+        <div class="cost-sub">Original Contract</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">Revised Budget</div>
+        <div class="cost-value" id="costRevised">—</div>
+        <div class="cost-sub">Including VOs</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">CAC / EAC</div>
+        <div class="cost-value" id="costCAC">—</div>
+        <div class="cost-sub" id="costCACDelta">—</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">Cost Variance</div>
+        <div class="cost-value" id="costVariance">—</div>
+        <div class="cost-sub" id="costCPI">—</div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:14px">
+      <!-- COST BREAKDOWN -->
+      <div>
+        <div class="section-title" style="font-size:11px">
+          <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+          Cost Breakdown by Group
+        </div>
+        <table class="cost-breakdown" id="costBreakdownTable">
+          <thead>
+            <tr>
+              <th>Cost Group</th>
+              <th>Budget (SAR)</th>
+              <th>Committed (SAR)</th>
+              <th>Variance (SAR)</th>
+              <th>Committed %</th>
+            </tr>
+          </thead>
+          <tbody id="costBreakdownBody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- VARIANCE & EXCEPTIONS -->
+      <div>
+        <div class="section-title" style="font-size:11px">
+          <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          Variance & Exceptions
+        </div>
+        <div class="variance-list" id="varianceList">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- MITIGATION ACTIONS -->
+    <div class="section-title">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+      Critical Mitigation Actions
+    </div>
+
+    <table class="actions-table" id="actionsTable">
+      <thead>
+        <tr>
+          <th style="width:25%">Issue / Risk</th>
+          <th style="width:12%">Impact</th>
+          <th style="width:30%">Mitigation Action</th>
+          <th style="width:15%">Owner</th>
+          <th style="width:18%">Target Date</th>
+        </tr>
+      </thead>
+      <tbody id="actionsBody">
+        <!-- Populated dynamically -->
+      </tbody>
+    </table>
+
+    <!-- EXECUTIVE INSIGHT -->
+    <div class="section-title" style="margin-top:14px">
+      <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+      Executive Insight
+    </div>
+
+    <div class="insight-box" id="insightBox">
+      <strong>Status Summary:</strong> Loading…
+    </div>
+
+    <div class="page-footer" style="margin-top:14px">
+      <span class="confidential">Confidential — For Internal Use Only</span>
+      <span>MOZN AL SAFA · DAR Al Riyadh Group · Page 2 of 2</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT — DATA LAYER
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+/* ─────────────────────────────────────────────────────────
+   CONFIGURATION — Points to MOZN Google Sheet
+   Change SHEET_ID to switch data source
+   ───────────────────────────────────────────────────────── */
+const CONFIG = {
+  SHEET_ID: '14peagk82Jps2sD5eLTnpOyYNMYHPFx4vaIcj5iVWQV8',
+  TABS: {
+    MAIN:       'Sheet1',
+    WP:         'Work Packages',
+    MILESTONES: 'Milestones',
+    COST_BRK:   'Cost Breakdown',
+    VARIANCES:  'Variances',
+    ACTIONS:    'Mitigation Actions',
+    INSIGHT:    'Executive Insight'
+  },
+  getSheetURL(sheetName) {
+    return `https://docs.google.com/spreadsheets/d/${this.SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+  }
+};
+
+/* ─────────────────────────────────────────────────────────
+   DATA FETCH LAYER — CSV parser + multi-sheet fetcher
+   ───────────────────────────────────────────────────────── */
+function parseCSV(text) {
+  if (!text || !text.trim()) return [];
+  const lines = text.trim().split('\n');
+  return lines.map(line => {
+    const row = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
+        else { inQuotes = !inQuotes; }
+      } else if (ch === ',' && !inQuotes) {
+        row.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+    row.push(current.trim());
+    return row;
+  });
+}
+
+function csvToObjects(csvText) {
+  const rows = parseCSV(csvText);
+  if (rows.length < 2) return [];
+  // Find the first row that looks like a header (has non-empty values)
+  let headerIdx = 0;
+  for (let i = 0; i < rows.length; i++) {
+    const nonEmpty = rows[i].filter(c => c.replace(/^"|"$/g, '').trim() !== '');
+    if (nonEmpty.length >= 2) { headerIdx = i; break; }
+  }
+  const headers = rows[headerIdx].map(h => h.replace(/^"|"$/g, '').trim());
+  return rows.slice(headerIdx + 1)
+    .filter(row => row.some(c => c.replace(/^"|"$/g, '').trim() !== ''))
+    .map(row => {
+      const obj = {};
+      headers.forEach((h, i) => {
+        obj[h] = row[i] ? row[i].replace(/^"|"$/g, '').trim() : '';
+      });
+      return obj;
+    });
+}
+
+async function fetchSheet(sheetName) {
+  try {
+    const url = CONFIG.getSheetURL(sheetName);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    return csvToObjects(text);
+  } catch (err) {
+    console.warn(`Fetch failed for "${sheetName}":`, err);
+    return null;
+  }
+}
+
+/* Fetch all 7 sheets in parallel */
+async function fetchAllSheets() {
+  const T = CONFIG.TABS;
+  const [main, wp, ms, costBrk, variances, actions, insight] = await Promise.all([
+    fetchSheet(T.MAIN),
+    fetchSheet(T.WP),
+    fetchSheet(T.MILESTONES),
+    fetchSheet(T.COST_BRK),
+    fetchSheet(T.VARIANCES),
+    fetchSheet(T.ACTIONS),
+    fetchSheet(T.INSIGHT)
+  ]);
+  return { main, wp, ms, costBrk, variances, actions, insight };
+}
+
+/* ─────────────────────────────────────────────────────────
+   DATA TRANSFORMATION LAYER
+   ───────────────────────────────────────────────────────── */
+function safe(val, fallback = '—') {
+  if (val === undefined || val === null || val === '' || val === 'NaN' || val === 'null') return fallback;
+  return val;
+}
+
+function safeNum(val, fallback = 0) {
+  const n = parseFloat(String(val).replace(/,/g, '').replace(/[^\d.-]/g, ''));
+  return isNaN(n) ? fallback : n;
+}
+
+function formatSAR(num) {
+  if (num === null || isNaN(num)) return '—';
+  if (Math.abs(num) >= 1000000) return (num / 1000000).toFixed(2) + 'M';
+  if (Math.abs(num) >= 1000) return (num / 1000).toFixed(0) + 'K';
+  return num.toLocaleString('en-US');
+}
+
+function formatPct(val) {
+  const n = safeNum(val);
+  if (n === 0 && val === '') return '—';
+  return n.toFixed(1) + '%';
+}
+
+function getStatusClass(val) {
+  const n = safeNum(val);
+  if (n >= 0.95) return 'green';
+  if (n >= 0.85) return 'amber';
+  return 'red';
+}
+
+function getStatusLabel(spi) {
+  const n = safeNum(spi);
+  if (n >= 0.95) return { text: 'On Track', cls: 'on-track' };
+  if (n >= 0.85) return { text: 'At Risk', cls: 'at-risk' };
+  return { text: 'Delayed', cls: 'delayed' };
+}
+
+/* Build key→value lookup from Sheet1 (Col A = key, Col B = value) */
+function buildLookup(data) {
+  const map = {};
+  if (!data) return map;
+  data.forEach(row => {
+    const keys = Object.keys(row);
+    if (keys.length >= 2) {
+      const key = row[keys[0]];
+      const val = row[keys[1]];
+      if (key && !key.startsWith('📋') && !key.startsWith('📅') && !key.startsWith('🏠') && !key.startsWith('💰') && !key.startsWith('⚠'))
+        map[key.trim()] = val;
+    }
+  });
+  return map;
+}
+
+/* ─────────────────────────────────────────────────────────
+   TRANSFORM ALL SHEETS INTO REPORT DATA MODEL
+   ───────────────────────────────────────────────────────── */
+function transformAllSheets(sheets) {
+  const lookup = buildLookup(sheets.main);
+
+  const get = (key, fallback) => {
+    const val = lookup[key];
+    return (val !== undefined && val !== '') ? val : fallback;
+  };
+  const getNum = (key, fallback) => {
+    const val = lookup[key];
+    return (val !== undefined && val !== '') ? safeNum(val) : fallback;
+  };
+
+  /* ── Sheet1 → project + mockupVilla + cost ── */
+  const project = {
+    name:             get('Project Name', 'MOZN AL SAFA — 22 Villas, Riyadh'),
+    reportPeriod:     get('Report Period', '—'),
+    dataDate:         get('Data Date', '—'),
+    startDate:        get('Project Start Date', '—'),
+    plannedFinish:    get('Planned Finish Date', '—'),
+    forecastFinish:   get('Forecast Finish Date', '—'),
+    scheduleVariance: getNum('Schedule Variance', 0),
+    spi:              getNum('SPI', 1),
+    plannedPct:       getNum('Planned %', 0),
+    actualPct:        getNum('Actual %', 0),
+    delayStatus:      get('Delay Status', '—'),
+    overallStatus:    get('Overall Status', 'caution')
+  };
+
+  const mockupVilla = {
+    plannedPct:     getNum('Mockup Planned %', 0),
+    actualPct:      getNum('Mockup Actual %', 0),
+    variance:       getNum('Mockup Variance %', 0),
+    forecastFinish: get('Mockup Forecast Finish', '—'),
+    recoveryFinish: get('Mockup Recovery Finish', '—'),
+    status:         get('Mockup Status', 'delayed')
+  };
+
+  const cost = {
+    baseline:     getNum('Baseline Budget', 0),
+    revised:      getNum('Revised Budget', 0),
+    cac:          getNum('CAC', 0),
+    committed:    getNum('Committed Amount', 0),
+    committedPct: getNum('Committed %', 0),
+    actualToDate: getNum('Actual Cost', 0),
+    costVariance: getNum('Cost Variance', 0),
+    cpi:          getNum('CPI', 1)
+  };
+
+  /* ── Work Packages tab ── */
+  let workPackages = [];
+  if (sheets.wp && sheets.wp.length > 0) {
+    workPackages = sheets.wp
+      .filter(r => {
+        const name = r['Work Package'] || r[Object.keys(r)[0]] || '';
+        return name && !name.startsWith('🏗');
+      })
+      .map(r => {
+        const keys = Object.keys(r);
+        const pctRaw = r['Progress %'] || r[keys[1]] || '0';
+        let pct = safeNum(pctRaw);
+        // Google Sheets exports percentages as decimals (0.72) if formatted as %
+        if (pct > 0 && pct <= 1 && !pctRaw.includes('%')) pct = pct * 100;
+        // Also handle "100%" string
+        if (pctRaw.includes('%')) pct = safeNum(pctRaw);
+        return {
+          name:     r['Work Package'] || r[keys[0]] || '—',
+          pct:      Math.round(pct),
+          forecast: r['Forecast Finish'] || r[keys[2]] || '—',
+          recovery: r['Recovery Finish'] || r[keys[3]] || '—',
+          status:   (r['Status'] || r[keys[4]] || 'delayed').toLowerCase().replace(/\s/g, '-')
+        };
+      });
+  }
+
+  /* ── Milestones tab ── */
+  let milestones = [];
+  if (sheets.ms && sheets.ms.length > 0) {
+    milestones = sheets.ms
+      .filter(r => {
+        const name = r['Milestone'] || r[Object.keys(r)[0]] || '';
+        return name && !name.startsWith('🎯');
+      })
+      .map(r => {
+        const keys = Object.keys(r);
+        const slip = safeNum(r['Slippage (days)'] || r[keys[4]] || '0');
+        let status = (r['Status'] || r[keys[5]] || '').toLowerCase().replace(/\s/g, '-');
+        if (!status || status === '—') {
+          status = slip === 0 ? 'completed' : slip < -14 ? 'delayed' : 'on-track';
+        }
+        const actual = r['Actual Date'] || r[keys[3]] || '';
+        return {
+          label:    r['Milestone'] || r[keys[0]] || '—',
+          baseline: r['Baseline Date'] || r[keys[1]] || '—',
+          forecast: r['Forecast Date'] || r[keys[2]] || '—',
+          actual:   (actual === '—' || actual === '') ? null : actual,
+          slip:     slip,
+          status:   status
+        };
+      });
+  }
+
+  /* ── Cost Breakdown tab ── */
+  let costBreakdown = [];
+  if (sheets.costBrk && sheets.costBrk.length > 0) {
+    costBreakdown = sheets.costBrk
+      .filter(r => {
+        const name = r['Cost Group'] || r[Object.keys(r)[0]] || '';
+        return name && !name.startsWith('💰') && name !== 'TOTAL';
+      })
+      .map(r => {
+        const keys = Object.keys(r);
+        const budget = safeNum(r['Budget (SAR)'] || r[keys[1]] || '0');
+        const committed = safeNum(r['Committed (SAR)'] || r[keys[2]] || '0');
+        const variance = safeNum(r['Variance (SAR)'] || r[keys[3]] || String(budget - committed));
+        return {
+          group:     r['Cost Group'] || r[keys[0]] || '—',
+          budget:    budget,
+          committed: committed,
+          variance:  variance
+        };
+      });
+  }
+
+  /* ── Variances tab ── */
+  let variances = [];
+  if (sheets.variances && sheets.variances.length > 0) {
+    variances = sheets.variances
+      .filter(r => {
+        const name = r['Item'] || r[Object.keys(r)[0]] || '';
+        return name && !name.startsWith('⚠');
+      })
+      .map(r => {
+        const keys = Object.keys(r);
+        const val = safeNum(r['Variance (SAR)'] || r[keys[1]] || '0');
+        let pctRaw = r['Variance %'] || r[keys[2]] || '0';
+        let pct = safeNum(pctRaw);
+        // Handle decimal export from Google Sheets (0.234 → 23.4%)
+        if (Math.abs(pct) > 0 && Math.abs(pct) <= 1 && !pctRaw.includes('%')) pct = pct * 100;
+        const typ = (r['Type'] || r[keys[3]] || '').toLowerCase();
+        return {
+          label: r['Item'] || r[keys[0]] || '—',
+          value: val,
+          pct:   pct,
+          type:  typ === 'positive' ? 'positive' : 'negative'
+        };
+      });
+  }
+
+  /* ── Mitigation Actions tab ── */
+  let actions = [];
+  if (sheets.actions && sheets.actions.length > 0) {
+    actions = sheets.actions
+      .filter(r => {
+        const name = r['Issue / Risk'] || r[Object.keys(r)[0]] || '';
+        return name && !name.startsWith('🚨');
+      })
+      .map(r => {
+        const keys = Object.keys(r);
+        return {
+          issue:  r['Issue / Risk'] || r[keys[0]] || '—',
+          impact: r['Impact'] || r[keys[1]] || '—',
+          action: r['Mitigation Action'] || r[keys[2]] || '—',
+          owner:  r['Owner'] || r[keys[3]] || '—',
+          target: r['Target Date'] || r[keys[4]] || '—'
+        };
+      });
+  }
+
+  /* ── Executive Insight tab (key-value pairs) ── */
+  let insight = { summary: '—', changes: '—', alerts: [], decisions: [] };
+  if (sheets.insight && sheets.insight.length > 0) {
+    const iLookup = {};
+    sheets.insight.forEach(r => {
+      const keys = Object.keys(r);
+      const k = (r[keys[0]] || '').trim();
+      const v = (r[keys[1]] || '').trim();
+      if (k) iLookup[k] = v;
+    });
+    insight.summary = iLookup['Status Summary'] || '—';
+    insight.changes = iLookup['Changes Since Last Period'] || '—';
+    insight.alerts = [
+      iLookup['Top Alert 1'],
+      iLookup['Top Alert 2'],
+      iLookup['Top Alert 3']
+    ].filter(Boolean);
+    insight.decisions = [
+      iLookup['Key Decision 1'],
+      iLookup['Key Decision 2'],
+      iLookup['Key Decision 3']
+    ].filter(Boolean);
+  }
+
+  return { project, mockupVilla, workPackages, milestones, cost, costBreakdown, variances, actions, insight };
+}
+
+/* ─────────────────────────────────────────────────────────
+   UI RENDERING LAYER
+   ───────────────────────────────────────────────────────── */
+function renderReport(data) {
+  const d = data;
+
+  // Header / Meta
+  document.getElementById('projectName').textContent = d.project.name;
+  document.getElementById('reportPeriod').textContent = d.project.reportPeriod;
+  document.getElementById('reportPeriod2').textContent = d.project.reportPeriod;
+  document.getElementById('dataDate').textContent = d.project.dataDate;
+
+  // Executive Strip
+  const badge = document.getElementById('overallBadge');
+  const statusMap = { critical: 'AT RISK', caution: 'CAUTION', 'on-track': 'ON TRACK' };
+  badge.textContent = statusMap[d.project.overallStatus] || 'AT RISK';
+  badge.className = 'status-badge ' + d.project.overallStatus;
+  document.getElementById('execSummary').innerHTML = d.project.overallStatus === 'critical'
+    ? `Project is <strong>behind schedule</strong> with <strong>${Math.abs(d.project.scheduleVariance)}-day</strong> forecast delay. Mockup villa progress requires acceleration. Cost within tolerance. Immediate contractor actions required.`
+    : d.project.overallStatus === 'caution'
+    ? `Project showing <strong>minor delays</strong>. Monitoring required on key packages. Cost performance acceptable.`
+    : `Project is <strong>on track</strong>. All key indicators within acceptable range.`;
+
+  // KPI Cards
+  document.getElementById('kpiStart').textContent = d.project.startDate;
+  document.getElementById('kpiPlannedFinish').textContent = d.project.plannedFinish;
+  document.getElementById('kpiForecastFinish').textContent = d.project.forecastFinish;
+  document.getElementById('kpiFinishTrend').textContent = d.project.scheduleVariance < 0 ? `${d.project.scheduleVariance} days` : `+${d.project.scheduleVariance} days`;
+  document.getElementById('kpiFinishTrend').className = 'kpi-trend ' + (d.project.scheduleVariance < 0 ? 'negative' : 'positive');
+
+  const svDays = d.project.scheduleVariance;
+  document.getElementById('kpiSV').innerHTML = `<span class="kpi-dot ${svDays < -14 ? 'red' : svDays < 0 ? 'amber' : 'green'}"></span>${svDays} d`;
+  document.getElementById('kpiSVTrend').textContent = svDays < 0 ? 'Behind' : 'Ahead';
+  document.getElementById('kpiSVTrend').className = 'kpi-trend ' + (svDays < 0 ? 'negative' : 'positive');
+
+  const spiVal = d.project.spi;
+  document.getElementById('kpiSPI').textContent = spiVal.toFixed(2);
+  document.getElementById('kpiSPI').style.color = spiVal >= 0.95 ? 'var(--green)' : spiVal >= 0.85 ? 'var(--amber)' : 'var(--red)';
+  document.getElementById('kpiSPITrend').textContent = spiVal >= 0.95 ? 'Healthy' : spiVal >= 0.85 ? 'At Risk' : 'Critical';
+  document.getElementById('kpiSPITrend').className = 'kpi-trend ' + (spiVal >= 0.95 ? 'positive' : 'negative');
+
+  document.getElementById('kpiPlannedPct').textContent = d.project.plannedPct.toFixed(1) + '%';
+  document.getElementById('kpiActualPct').textContent = d.project.actualPct.toFixed(1) + '%';
+  const delStat = getStatusLabel(d.project.spi);
+  document.getElementById('kpiDelayStatus').innerHTML = `<span class="kpi-dot ${delStat.cls === 'on-track' ? 'green' : delStat.cls === 'at-risk' ? 'amber' : 'red'}"></span>${delStat.text}`;
+
+  // Overall Gauge
+  const pct = d.project.actualPct;
+  const arcLen = (pct / 100) * 188.5;
+  const gaugeArc = document.getElementById('gaugeArc');
+  gaugeArc.setAttribute('stroke-dasharray', `${arcLen} 251.3`);
+  gaugeArc.setAttribute('stroke', pct >= 95 ? '#16A34A' : pct >= 80 ? '#3A7BD5' : '#D97706');
+  document.getElementById('gaugeLabel').textContent = pct.toFixed(1) + '%';
+  document.getElementById('gPlanned').textContent = d.project.plannedPct.toFixed(1) + '%';
+  document.getElementById('gActual').textContent = d.project.actualPct.toFixed(1) + '%';
+  document.getElementById('gSPI').textContent = d.project.spi.toFixed(2);
+  document.getElementById('gSPI').className = spiVal >= 0.95 ? '' : 'val-red';
+  document.getElementById('gForecast').textContent = d.project.forecastFinish;
+  document.getElementById('gVariance').textContent = d.project.scheduleVariance + ' days';
+
+  // Mockup Villa
+  document.getElementById('vPlanned').textContent = d.mockupVilla.plannedPct.toFixed(1) + '%';
+  document.getElementById('vActual').textContent = d.mockupVilla.actualPct.toFixed(1) + '%';
+  document.getElementById('vVariance').textContent = d.mockupVilla.variance.toFixed(1) + '%';
+  document.getElementById('vForecast').textContent = d.mockupVilla.forecastFinish;
+  document.getElementById('vRecovery').textContent = d.mockupVilla.recoveryFinish;
+  const vStatus = getStatusLabel(d.mockupVilla.actualPct / Math.max(d.mockupVilla.plannedPct, 1));
+  const vPill = document.getElementById('villaStatusPill');
+  vPill.textContent = d.mockupVilla.status.toUpperCase().replace('-', ' ');
+  vPill.className = 'villa-status status-pill ' + d.mockupVilla.status;
+
+  // Work Packages
+  const wpBody = document.getElementById('wpBody');
+  wpBody.innerHTML = d.workPackages.map(wp => {
+    const barCls = wp.pct >= 90 ? 'green' : wp.pct >= 60 ? 'blue' : wp.pct >= 30 ? 'amber' : 'red';
+    return `<tr>
+      <td class="pkg-name">${wp.name}</td>
+      <td><div class="progress-bar"><div class="fill ${barCls}" style="width:${wp.pct}%"></div></div>${wp.pct}%</td>
+      <td>${wp.forecast}</td>
+      <td>${wp.recovery}</td>
+      <td><span class="status-pill ${wp.status}">${wp.status.replace('-', ' ').toUpperCase()}</span></td>
+    </tr>`;
+  }).join('');
+
+  // Milestones Timeline
+  const timeline = document.getElementById('timelineCompact');
+  timeline.innerHTML = d.milestones.map(ms => `
+    <div class="timeline-item">
+      <div class="ms-label">${ms.label}</div>
+      <div class="ms-dot ${ms.status}"></div>
+      <div class="ms-baseline">${ms.baseline}</div>
+      <div class="ms-forecast">${ms.actual || ms.forecast}</div>
+      ${ms.slip !== 0 ? `<div class="ms-slip ${ms.slip < 0 ? 'negative' : 'positive'}">${ms.slip > 0 ? '+' : ''}${ms.slip}d</div>` : '<div class="ms-slip positive">On time</div>'}
+    </div>
+  `).join('');
+
+  // COST
+  document.getElementById('costBaseline').textContent = formatSAR(d.cost.baseline);
+  document.getElementById('costRevised').textContent = formatSAR(d.cost.revised);
+  document.getElementById('costCAC').textContent = formatSAR(d.cost.cac);
+  document.getElementById('costCACDelta').textContent = `+${formatSAR(d.cost.costVariance)} vs V00`;
+  document.getElementById('costVariance').textContent = formatSAR(d.cost.costVariance);
+  document.getElementById('costVariance').style.color = d.cost.costVariance > 0 ? 'var(--red)' : 'var(--green)';
+  document.getElementById('costCPI').textContent = `CPI: ${d.cost.cpi.toFixed(2)} · Committed: ${d.cost.committedPct.toFixed(0)}%`;
+
+  // Cost Breakdown
+  const cbBody = document.getElementById('costBreakdownBody');
+  let totalBudget = 0, totalCommitted = 0, totalVar = 0;
+  d.costBreakdown.forEach(c => { totalBudget += c.budget; totalCommitted += c.committed; totalVar += c.variance; });
+  cbBody.innerHTML = d.costBreakdown.map(c => {
+    const cPct = c.budget > 0 ? ((c.committed / c.budget) * 100).toFixed(0) : '0';
+    return `<tr>
+      <td style="font-weight:600;color:var(--navy)">${c.group}</td>
+      <td>${formatSAR(c.budget)}</td>
+      <td>${formatSAR(c.committed)}</td>
+      <td style="color:${c.variance >= 0 ? 'var(--green)' : 'var(--red)'};font-weight:600">${c.variance >= 0 ? '+' : ''}${formatSAR(c.variance)}</td>
+      <td>${cPct}%</td>
+    </tr>`;
+  }).join('') + `<tr class="total-row">
+    <td>TOTAL</td>
+    <td>${formatSAR(totalBudget)}</td>
+    <td>${formatSAR(totalCommitted)}</td>
+    <td style="color:${totalVar >= 0 ? 'var(--green)' : 'var(--red)'}">${totalVar >= 0 ? '+' : ''}${formatSAR(totalVar)}</td>
+    <td>${totalBudget > 0 ? ((totalCommitted / totalBudget) * 100).toFixed(0) : 0}%</td>
+  </tr>`;
+
+  // Variance List
+  const varList = document.getElementById('varianceList');
+  varList.innerHTML = d.variances.map(v => {
+    const isPos = v.type === 'positive';
+    const barW = Math.min(Math.abs(v.pct), 100);
+    return `<div class="variance-item">
+      <span class="var-label">${v.label}</span>
+      <div class="var-bar"><div class="var-fill" style="width:${barW}%;background:${isPos ? 'var(--green)' : 'var(--red)'}"></div></div>
+      <span class="var-value" style="color:${isPos ? 'var(--green)' : 'var(--red)'}">${isPos ? '+' : ''}${formatSAR(v.value)}</span>
+      <span class="var-pct">${v.pct > 0 ? '+' : ''}${v.pct.toFixed(1)}%</span>
+    </div>`;
+  }).join('');
+
+  // Actions
+  const actBody = document.getElementById('actionsBody');
+  actBody.innerHTML = d.actions.map(a => `<tr>
+    <td style="font-weight:600;color:var(--navy)">${a.issue}</td>
+    <td><span class="status-pill ${a.impact.includes('Cost') ? 'at-risk' : 'delayed'}">${a.impact}</span></td>
+    <td>${a.action}</td>
+    <td style="font-weight:600">${a.owner}</td>
+    <td>${a.target}</td>
+  </tr>`).join('');
+
+  // Executive Insight
+  document.getElementById('insightBox').innerHTML = `
+    <strong>Status Summary:</strong> ${d.insight.summary}<br><br>
+    <strong>Changes Since Last Period:</strong> ${d.insight.changes}
+    <br><br><strong>Top Alerts:</strong>
+    <ul>${d.insight.alerts.map(a => `<li>${a}</li>`).join('')}</ul>
+    <br><strong>Key Decisions Required:</strong>
+    <ul>${d.insight.decisions.map(dec => `<li>${dec}</li>`).join('')}</ul>
+  `;
+}
+
+/* ─────────────────────────────────────────────────────────
+   DATA INTEGRATION — Fetch all 7 sheets from Google Sheets
+   ───────────────────────────────────────────────────────── */
+async function loadData() {
+  const statusDot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const loading = document.getElementById('loadingOverlay');
+
+  loading.classList.remove('hidden');
+  statusDot.className = 'dot offline';
+  statusText.textContent = 'Fetching 7 sheets…';
+
+  try {
+    const sheets = await fetchAllSheets();
+    const hasMain = sheets.main && sheets.main.length > 0;
+    const hasAny = hasMain || (sheets.wp && sheets.wp.length > 0);
+
+    if (hasAny) {
+      const mapped = transformAllSheets(sheets);
+      renderReport(mapped);
+      // Count how many sheets loaded successfully
+      const loaded = [sheets.main, sheets.wp, sheets.ms, sheets.costBrk, sheets.variances, sheets.actions, sheets.insight]
+        .filter(s => s && s.length > 0).length;
+      statusDot.className = 'dot live';
+      statusText.textContent = `Live · ${loaded}/7 sheets`;
+    } else {
+      console.info('Google Sheet inaccessible or empty — check sharing permissions');
+      statusDot.className = 'dot error';
+      statusText.textContent = 'No data · Check sheet permissions';
+    }
+  } catch (err) {
+    console.warn('Data load error:', err);
+    statusDot.className = 'dot error';
+    statusText.textContent = 'Error · ' + err.message;
+  }
+
+  setTimeout(() => loading.classList.add('hidden'), 400);
+}
+
+/* ─────────────────────────────────────────────────────────
+   REFRESH HANDLER
+   ───────────────────────────────────────────────────────── */
+async function refreshData() {
+  const btn = document.getElementById('btnRefresh');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  await loadData();
+  btn.classList.remove('loading');
+  btn.disabled = false;
+}
+
+/* ─────────────────────────────────────────────────────────
+   INIT
+   ───────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', loadData);
+</script>
+</body>
+</html>
