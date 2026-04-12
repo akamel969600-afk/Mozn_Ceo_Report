@@ -419,48 +419,137 @@ body {
 .status-pill.at-risk { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
 
 /* ═══════════════════════════════════════════════════════════════
-   MILESTONES TIMELINE
+   MILESTONES TIMELINE — Enhanced with status & progress rings
    ═══════════════════════════════════════════════════════════════ */
+.timeline-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.timeline-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--gray-500);
+  letter-spacing: 0.3px;
+}
+.timeline-legend .legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.legend-dot.completed-dot { background: var(--green); }
+.legend-dot.in-progress-dot { background: var(--blue); }
+.legend-dot.at-risk-dot { background: var(--red); }
+.legend-dot.upcoming-dot { background: var(--gray-300); }
+
 .timeline-compact {
   display: flex;
   gap: 0;
   background: var(--gray-50);
   border-radius: var(--radius);
   border: 1px solid var(--gray-200);
+  overflow: visible;
+  position: relative;
+}
+
+/* The green progress track that runs behind all items */
+.timeline-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gray-200);
+  border-radius: 0 0 var(--radius) var(--radius);
   overflow: hidden;
 }
+.timeline-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green) 0%, var(--blue-light) 100%);
+  border-radius: 0 0 var(--radius) 0;
+  transition: width 0.6s ease;
+}
+
 .timeline-item {
   flex: 1;
-  padding: 10px 8px;
+  padding: 8px 6px 14px;
   text-align: center;
   border-right: 1px solid var(--gray-200);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .timeline-item:last-child { border-right: none; }
+
 .timeline-item .ms-label {
-  font-size: 8px;
+  font-size: 7.5px;
   font-weight: 600;
   color: var(--gray-500);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   margin-bottom: 6px;
   line-height: 1.3;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.timeline-item .ms-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  margin: 0 auto 6px;
-  border: 2px solid;
+
+/* Status icon — SVG ring with checkmark / spinner / dot */
+.ms-status-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+  position: relative;
+  flex-shrink: 0;
 }
-.ms-dot.completed { background: var(--green); border-color: var(--green); }
-.ms-dot.on-track { background: var(--white); border-color: var(--blue); }
-.ms-dot.delayed { background: var(--red); border-color: var(--red); }
-.ms-dot.upcoming { background: var(--white); border-color: var(--gray-300); }
+
+/* Completed — green filled circle with checkmark */
+.ms-status-icon.completed svg circle.track { stroke: var(--green-border); }
+.ms-status-icon.completed svg circle.progress { stroke: var(--green); stroke-dasharray: 82.94 82.94; }
+.ms-status-icon.completed svg .check { stroke: var(--green); }
+.ms-status-icon.completed svg .pct-text { display: none; }
+
+/* In-progress — blue ring with % */
+.ms-status-icon.in-progress svg circle.track { stroke: var(--gray-200); }
+.ms-status-icon.in-progress svg circle.progress { stroke: var(--blue); }
+.ms-status-icon.in-progress svg .check { display: none; }
+
+/* At-risk — red ring with % */
+.ms-status-icon.at-risk svg circle.track { stroke: var(--gray-200); }
+.ms-status-icon.at-risk svg circle.progress { stroke: var(--red); }
+.ms-status-icon.at-risk svg .check { display: none; }
+
+/* Delayed — red ring with % */
+.ms-status-icon.delayed svg circle.track { stroke: var(--gray-200); }
+.ms-status-icon.delayed svg circle.progress { stroke: var(--red); }
+.ms-status-icon.delayed svg .check { display: none; }
+
+/* Upcoming — gray ring empty */
+.ms-status-icon.upcoming svg circle.track { stroke: var(--gray-200); }
+.ms-status-icon.upcoming svg circle.progress { stroke: var(--gray-300); stroke-dasharray: 0 82.94; }
+.ms-status-icon.upcoming svg .check { display: none; }
+
+.ms-pct-label {
+  font-size: 8px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.ms-pct-label.completed { color: var(--green); }
+.ms-pct-label.in-progress { color: var(--blue); }
+.ms-pct-label.at-risk { color: var(--red); }
+.ms-pct-label.delayed { color: var(--red); }
+.ms-pct-label.upcoming { color: var(--gray-400); }
 
 .timeline-item .ms-baseline {
-  font-size: 8.5px;
-  color: var(--gray-500);
-  margin-bottom: 2px;
+  font-size: 8px;
+  color: var(--gray-400);
+  margin-bottom: 1px;
 }
 .timeline-item .ms-forecast {
   font-size: 9px;
@@ -468,12 +557,14 @@ body {
   color: var(--navy);
 }
 .timeline-item .ms-slip {
-  font-size: 8px;
+  font-size: 7.5px;
   font-weight: 700;
   margin-top: 2px;
+  padding: 1px 6px;
+  border-radius: 8px;
 }
-.ms-slip.negative { color: var(--red); }
-.ms-slip.positive { color: var(--green); }
+.ms-slip.negative { color: var(--red); background: var(--red-bg); }
+.ms-slip.positive { color: var(--green); background: var(--green-bg); }
 
 /* ═══════════════════════════════════════════════════════════════
    COST TABLE
@@ -733,6 +824,7 @@ body {
   .cost-grid { grid-template-columns: repeat(2, 1fr); }
   .timeline-compact { flex-wrap: wrap; }
   .timeline-item { flex: 0 0 33.33%; }
+  .timeline-track { display: none; }
 }
 </style>
 </head>
@@ -891,8 +983,18 @@ body {
       Key Milestones
     </div>
 
+    <div class="timeline-legend" id="timelineLegend">
+      <span style="font-size:8.5px;font-weight:600;color:var(--navy);letter-spacing:0.3px">Project Timeline & Milestones</span>
+      <span style="flex:1"></span>
+      <span class="legend-item"><span class="legend-dot completed-dot"></span> Completed</span>
+      <span class="legend-item"><span class="legend-dot in-progress-dot"></span> In Progress</span>
+      <span class="legend-item"><span class="legend-dot at-risk-dot"></span> At Risk</span>
+      <span class="legend-item"><span class="legend-dot upcoming-dot"></span> Upcoming</span>
+    </div>
+
     <div class="timeline-compact" id="timelineCompact">
       <!-- Populated dynamically -->
+      <div class="timeline-track"><div class="timeline-track-fill" id="timelineTrackFill" style="width:0%"></div></div>
     </div>
 
     <div class="page-footer">
@@ -1269,14 +1371,27 @@ function transformAllSheets(sheets) {
         if (!status || status === '—') {
           status = slip === 0 ? 'completed' : slip < -14 ? 'delayed' : 'on-track';
         }
+        // Normalize status values
+        if (status === 'on-track') status = 'in-progress';
         const actual = r['Actual Date'] || r[keys[3]] || '';
+        // Parse progress % if available (col 6 or "Progress %")
+        let pctRaw = r['Progress %'] || r[keys[6]] || '';
+        let pct = safeNum(pctRaw, -1);
+        if (pct > 0 && pct <= 1 && !String(pctRaw).includes('%')) pct = pct * 100;
+        // If no explicit pct, derive from status
+        if (pct < 0) {
+          if (status === 'completed') pct = 100;
+          else if (status === 'upcoming') pct = 0;
+          else pct = -1; // will not show % for in-progress without data
+        }
         return {
           label:    r['Milestone'] || r[keys[0]] || '—',
           baseline: r['Baseline Date'] || r[keys[1]] || '—',
           forecast: r['Forecast Date'] || r[keys[2]] || '—',
           actual:   (actual === '—' || actual === '') ? null : actual,
           slip:     slip,
-          status:   status
+          status:   status,
+          pct:      pct
         };
       });
   }
@@ -1459,17 +1574,73 @@ function renderReport(data) {
     </tr>`;
   }).join('');
 
-  // Milestones Timeline
+  // Milestones Timeline — Enhanced with status rings & progress track
   const timeline = document.getElementById('timelineCompact');
-  timeline.innerHTML = d.milestones.map(ms => `
-    <div class="timeline-item">
+  const totalMs = d.milestones.length;
+  const completedMs = d.milestones.filter(ms => ms.status === 'completed').length;
+  const inProgressMs = d.milestones.filter(ms => ms.status === 'in-progress' || ms.status === 'at-risk' || ms.status === 'delayed');
+  // Calculate track fill: completed milestones + partial for in-progress
+  let trackPct = 0;
+  if (totalMs > 0) {
+    const completedWeight = completedMs / totalMs;
+    const partialWeight = inProgressMs.length > 0 ? (0.5 / totalMs) : 0;
+    trackPct = Math.min((completedWeight + partialWeight) * 100, 100);
+  }
+
+  // Build milestone items HTML
+  const msItems = d.milestones.map(ms => {
+    const circumference = 82.94; // 2 * PI * 13.2
+    let dashArray = '0 82.94';
+    let pctDisplay = '';
+    const pctVal = ms.pct >= 0 ? ms.pct : (ms.status === 'completed' ? 100 : 0);
+
+    if (ms.status === 'completed') {
+      dashArray = `${circumference} ${circumference}`;
+      pctDisplay = '100%';
+    } else if (pctVal > 0) {
+      const filled = (pctVal / 100) * circumference;
+      dashArray = `${filled.toFixed(1)} ${circumference}`;
+      pctDisplay = `${Math.round(pctVal)}%`;
+    } else if (ms.status === 'upcoming') {
+      dashArray = '0 82.94';
+      pctDisplay = '0%';
+    } else {
+      pctDisplay = '';
+    }
+
+    const statusCls = ms.status || 'upcoming';
+
+    // SVG ring with conditional checkmark or percentage text
+    const showCheck = ms.status === 'completed';
+    const ringColor = ms.status === 'completed' ? 'var(--green)'
+      : (ms.status === 'delayed' || ms.status === 'at-risk') ? 'var(--red)'
+      : ms.status === 'in-progress' ? 'var(--blue)'
+      : 'var(--gray-300)';
+
+    const svgRing = `<svg viewBox="0 0 32 32" width="32" height="32">
+      <circle class="track" cx="16" cy="16" r="13.2" fill="none" stroke="var(--gray-200)" stroke-width="2.5"/>
+      <circle class="progress" cx="16" cy="16" r="13.2" fill="none" stroke="${ringColor}" stroke-width="2.5"
+        stroke-dasharray="${dashArray}" stroke-linecap="round" transform="rotate(-90 16 16)"/>
+      ${showCheck ? `<polyline class="check" points="10,16.5 14,20.5 22,12" fill="none" stroke="${ringColor}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>` : ''}
+      ${!showCheck && pctDisplay ? `<text class="pct-text" x="16" y="17.5" text-anchor="middle" font-size="7.5" font-weight="700" fill="${ringColor}" font-family="DM Sans">${pctDisplay}</text>` : ''}
+    </svg>`;
+
+    const slipHTML = ms.slip !== 0
+      ? `<div class="ms-slip ${ms.slip < 0 ? 'negative' : 'positive'}">${ms.slip > 0 ? '+' : ''}${ms.slip}d</div>`
+      : '<div class="ms-slip positive">On time</div>';
+
+    return `<div class="timeline-item">
       <div class="ms-label">${ms.label}</div>
-      <div class="ms-dot ${ms.status}"></div>
+      <div class="ms-status-icon ${statusCls}">${svgRing}</div>
+      ${pctDisplay ? `<div class="ms-pct-label ${statusCls}">${pctDisplay}</div>` : ''}
       <div class="ms-baseline">${ms.baseline}</div>
       <div class="ms-forecast">${ms.actual || ms.forecast}</div>
-      ${ms.slip !== 0 ? `<div class="ms-slip ${ms.slip < 0 ? 'negative' : 'positive'}">${ms.slip > 0 ? '+' : ''}${ms.slip}d</div>` : '<div class="ms-slip positive">On time</div>'}
-    </div>
-  `).join('');
+      ${slipHTML}
+    </div>`;
+  }).join('');
+
+  // Preserve the track element and insert items before it
+  timeline.innerHTML = msItems + `<div class="timeline-track"><div class="timeline-track-fill" id="timelineTrackFill" style="width:${trackPct.toFixed(0)}%"></div></div>`;
 
   // COST
   document.getElementById('costBaseline').textContent = formatSAR(d.cost.baseline);
