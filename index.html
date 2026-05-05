@@ -682,6 +682,89 @@ body {
 .ms-slip.negative { color: var(--red); background: var(--red-bg); }
 .ms-slip.positive { color: var(--green); background: var(--green-bg); }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   WORK PACKAGES TABLE — Planned vs Forecast vs Delay
+   ═══════════════════════════════════════════════════════════════ */
+.wp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  font-size: 8.8px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.wp-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 6px 7px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 7.8px;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+  white-space: nowrap;
+}
+.wp-table td {
+  padding: 6px 7px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: middle;
+  color: var(--gray-700);
+}
+.wp-table tr:last-child td { border-bottom: none; }
+.wp-table tr:nth-child(even) td { background: var(--gray-50); }
+.wp-table .pkg-name {
+  font-weight: 700;
+  color: var(--navy-deep);
+  line-height: 1.35;
+}
+.wp-table .date-cell {
+  font-weight: 650;
+  color: var(--navy);
+  white-space: nowrap;
+}
+.wp-table .delay-cell {
+  font-weight: 800;
+  white-space: nowrap;
+}
+.wp-table .delay-cell.delayed { color: var(--red); }
+.wp-table .delay-cell.on-time { color: var(--green); }
+.wp-table .delay-cell.neutral { color: var(--gray-500); }
+.progress-cell { min-width: 0; }
+.progress-wrap {
+  display: grid;
+  grid-template-columns: 1fr 32px;
+  align-items: center;
+  gap: 6px;
+}
+.progress-bar {
+  height: 6px;
+  background: var(--gray-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%;
+  border-radius: 999px;
+}
+.progress-bar .fill.green { background: var(--green); }
+.progress-bar .fill.blue { background: var(--blue); }
+.progress-bar .fill.amber { background: var(--amber); }
+.progress-bar .fill.red { background: var(--red); }
+.progress-val {
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--navy-deep);
+  text-align: right;
+}
+.progress-stat strong.delay-bad { color: var(--red); }
+.progress-stat strong.delay-good { color: var(--green); }
+.progress-stat strong.delay-neutral { color: var(--gray-500); }
+
 /* ═══════════════════════════════════════════════════════════════
    COST TABLE
    ═══════════════════════════════════════════════════════════════ */
@@ -1084,8 +1167,9 @@ body {
           <div class="progress-info">
             <div class="progress-stat"><span>Planned %</span><strong id="gPlanned">—</strong></div>
             <div class="progress-stat"><span>Actual %</span><strong id="gActual">—</strong></div>
+            <div class="progress-stat"><span>Planned Finish</span><strong id="gPlannedFinish">—</strong></div>
             <div class="progress-stat"><span>Forecast Finish</span><strong id="gForecast">—</strong></div>
-            <div class="progress-stat"><span>Variance</span><strong id="gVariance">—</strong></div>
+            <div class="progress-stat"><span>Delay</span><strong id="gDelay">—</strong></div>
           </div>
         </div>
       </div>
@@ -1113,8 +1197,9 @@ body {
           <div class="progress-info">
             <div class="progress-stat"><span>Planned %</span><strong id="vPlanned">—</strong></div>
             <div class="progress-stat"><span>Actual %</span><strong id="vActual">—</strong></div>
+            <div class="progress-stat"><span>Planned Finish</span><strong id="vPlannedFinish">—</strong></div>
             <div class="progress-stat"><span>Forecast Finish</span><strong id="vForecast">—</strong></div>
-            <div class="progress-stat"><span>Variance</span><strong id="vVariance">—</strong></div>
+            <div class="progress-stat"><span>Delay</span><strong id="vDelay">—</strong></div>
           </div>
         </div>
       </div>
@@ -1125,22 +1210,24 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
       Mockup Villa — Key Work Packages
     </div>
-    <div class="section-copy">Execution focus showing package-level progress and forecast recovery dates.</div>
+    <div class="section-copy">Execution focus showing package-level progress, planned finish, forecast finish and delay days.</div>
 
     <table class="wp-table" id="wpTable">
       <colgroup>
-        <col style="width:32%">
-        <col style="width:18%">
-        <col style="width:17%">
-        <col style="width:17%">
+        <col style="width:30%">
         <col style="width:16%">
+        <col style="width:16%">
+        <col style="width:16%">
+        <col style="width:10%">
+        <col style="width:12%">
       </colgroup>
       <thead>
         <tr>
           <th>Work Package</th>
           <th>Progress</th>
+          <th>Planned Finish</th>
           <th>Forecast Finish</th>
-          <th>Recovery Finish</th>
+          <th>Delay</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -1512,6 +1599,65 @@ function escapeHTML(val) {
   }[ch]));
 }
 
+
+function firstAvailable(obj, keys, fallback = '—') {
+  for (const key of keys) {
+    if (obj && obj[key] !== undefined && obj[key] !== null && String(obj[key]).trim() !== '') return obj[key];
+  }
+  return fallback;
+}
+
+function parseReportDate(val) {
+  const s = String(val || '').trim();
+  if (!s || s === '—') return null;
+  const cleaned = s.replace(/\./g, '-').replace(/\//g, '-');
+  const months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+
+  // dd-mmm-yyyy / dd-mmm-yy
+  let m = cleaned.match(/^(\d{1,2})-([A-Za-z]{3,})-(\d{2,4})$/);
+  if (m) {
+    const year = Number(m[3].length === 2 ? '20' + m[3] : m[3]);
+    const mon = months[m[2].slice(0,3).toLowerCase()];
+    if (mon !== undefined) return new Date(Date.UTC(year, mon, Number(m[1])));
+  }
+
+  // dd-mm-yyyy
+  m = cleaned.match(/^(\d{1,2})-(\d{1,2})-(\d{2,4})$/);
+  if (m) {
+    const year = Number(m[3].length === 2 ? '20' + m[3] : m[3]);
+    return new Date(Date.UTC(year, Number(m[2]) - 1, Number(m[1])));
+  }
+
+  // yyyy-mm-dd
+  m = cleaned.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (m) return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+
+  const d = new Date(s);
+  return isNaN(d.getTime()) ? null : new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+}
+
+function diffDays(planned, forecast) {
+  const p = parseReportDate(planned);
+  const f = parseReportDate(forecast);
+  if (!p || !f) return null;
+  return Math.round((f - p) / 86400000);
+}
+
+function resolveDelayDays(explicitDelay, planned, forecast) {
+  const raw = String(explicitDelay ?? '').trim();
+  if (raw !== '' && raw !== '—' && raw.toLowerCase() !== 'nan') return Math.round(safeNum(raw, 0));
+  return diffDays(planned, forecast);
+}
+
+function delayHTML(days) {
+  if (days === null || days === undefined || isNaN(days)) {
+    return { text: '—', cls: 'neutral' };
+  }
+  if (days > 0) return { text: `+${days}d`, cls: 'delayed' };
+  if (days < 0) return { text: `${days}d`, cls: 'on-time' };
+  return { text: '0d', cls: 'on-time' };
+}
+
 /* ─────────────────────────────────────────────────────────
    TRANSFORM ALL SHEETS INTO REPORT DATA MODEL
    ───────────────────────────────────────────────────────── */
@@ -1534,6 +1680,7 @@ function transformAllSheets(sheets) {
     startDate:        get('Project Start Date', '—'),
     plannedFinish:    get('Planned Finish Date', '—'),
     forecastFinish:   get('Forecast Finish Date', '—'),
+    delayDays:        resolveDelayDays(get('Delay Days', ''), get('Planned Finish Date', '—'), get('Forecast Finish Date', '—')),
     scheduleVariance: getNum('Schedule Variance', 0),
     spi:              getNum('SPI', 1),
     plannedPct:       getNum('Planned %', 0),
@@ -1546,7 +1693,9 @@ function transformAllSheets(sheets) {
     plannedPct:     getNum('Mockup Planned %', 0),
     actualPct:      getNum('Mockup Actual %', 0),
     variance:       getNum('Mockup Variance %', 0),
-    forecastFinish: get('Mockup Forecast Finish', '—'),
+    plannedFinish:  firstAvailable(lookup, ['Mockup Planned Finish', 'Mockup Planned Finish Date', 'Mockup Planned Date'], '—'),
+    forecastFinish: firstAvailable(lookup, ['Mockup Forecast Finish', 'Mockup Forecast Finish Date', 'Mockup Forecast Date'], '—'),
+    delayDays:      resolveDelayDays(firstAvailable(lookup, ['Mockup Delay Days', 'Mockup Delay', 'Mockup Schedule Variance'], ''), firstAvailable(lookup, ['Mockup Planned Finish', 'Mockup Planned Finish Date', 'Mockup Planned Date'], '—'), firstAvailable(lookup, ['Mockup Forecast Finish', 'Mockup Forecast Finish Date', 'Mockup Forecast Date'], '—')),
     recoveryFinish: get('Mockup Recovery Finish', '—'),
     status:         get('Mockup Status', 'delayed')
   };
@@ -1578,13 +1727,19 @@ function transformAllSheets(sheets) {
         // Google Sheets exports percentages as decimals (0.72) if formatted as %
         if (pct > 0 && pct <= 1 && !pctRaw.includes('%')) pct = pct * 100;
         pct = Math.round(clampPct(pct));
-        const rawStatus = r['Status'] || r[keys[4]] || '';
+        const planned = firstAvailable(r, ['Planned Finish', 'Planned Finish Date', 'Planned Date', 'Baseline Finish', 'Baseline Finish Date'], '—');
+        const forecast = firstAvailable(r, ['Forecast Finish', 'Forecast Finish Date', 'Forecast Date', 'Expected Finish', 'Expected Finish Date'], '—');
+        const recovery = firstAvailable(r, ['Recovery Finish', 'Recovery Finish Date', 'Recovery Date'], '—');
+        const delay = resolveDelayDays(firstAvailable(r, ['Delay Days', 'Delay', 'Variance Days', 'Slippage Days'], ''), planned, forecast);
+        const rawStatus = r['Status'] || r[keys[5]] || r[keys[4]] || '';
 
         return {
           name:     r['Work Package'] || r[keys[0]] || '—',
           pct:      pct,
-          forecast: r['Forecast Finish'] || r[keys[2]] || '—',
-          recovery: r['Recovery Finish'] || r[keys[3]] || '—',
+          planned:  planned,
+          forecast: forecast,
+          recovery: recovery,
+          delay:    delay,
           status:   normalizeStatus(rawStatus, pct)
         };
       });
@@ -1860,10 +2015,13 @@ function renderReport(data) {
   document.getElementById('gaugeLabel').textContent = pct.toFixed(1) + '%';
   document.getElementById('gPlanned').textContent = d.project.plannedPct.toFixed(1) + '%';
   document.getElementById('gActual').textContent = d.project.actualPct.toFixed(1) + '%';
-  document.getElementById('gForecast').textContent = d.project.forecastFinish;
-  const gVariance = document.getElementById('gVariance');
-  gVariance.textContent = `${d.project.scheduleVariance > 0 ? '+' : ''}${d.project.scheduleVariance} days`;
-  gVariance.className = d.project.scheduleVariance < 0 ? 'negative' : (d.project.scheduleVariance > 0 ? 'positive' : '');
+  document.getElementById('gPlannedFinish').textContent = d.project.plannedFinish || '—';
+  document.getElementById('gForecast').textContent = d.project.forecastFinish || '—';
+  const projectDelay = resolveDelayDays(d.project.delayDays, d.project.plannedFinish, d.project.forecastFinish);
+  const gDelayMeta = delayHTML(projectDelay);
+  const gDelay = document.getElementById('gDelay');
+  gDelay.textContent = gDelayMeta.text;
+  gDelay.className = gDelayMeta.cls === 'delayed' ? 'delay-bad' : (gDelayMeta.cls === 'on-time' ? 'delay-good' : 'delay-neutral');
   const projPill = document.getElementById('projectStatusPill');
   projPill.textContent = delStat.text.toUpperCase();
   projPill.className = 'status-pill ' + delStat.cls;
@@ -1878,10 +2036,13 @@ function renderReport(data) {
   document.getElementById('mockupPct').textContent = actualMockup.toFixed(1) + '%';
   document.getElementById('vPlanned').textContent = plannedMockup.toFixed(1) + '%';
   document.getElementById('vActual').textContent = actualMockup.toFixed(1) + '%';
+  document.getElementById('vPlannedFinish').textContent = d.mockupVilla.plannedFinish || '—';
   document.getElementById('vForecast').textContent = d.mockupVilla.forecastFinish || '—';
-  const vVariance = document.getElementById('vVariance');
-  vVariance.textContent = `${mockupGap > 0 ? '+' : ''}${mockupGap.toFixed(1)}%`;
-  vVariance.className = mockupGap < 0 ? 'negative' : (mockupGap > 0 ? 'positive' : '');
+  const villaDelay = resolveDelayDays(d.mockupVilla.delayDays, d.mockupVilla.plannedFinish, d.mockupVilla.forecastFinish);
+  const vDelayMeta = delayHTML(villaDelay);
+  const vDelay = document.getElementById('vDelay');
+  vDelay.textContent = vDelayMeta.text;
+  vDelay.className = vDelayMeta.cls === 'delayed' ? 'delay-bad' : (vDelayMeta.cls === 'on-time' ? 'delay-good' : 'delay-neutral');
   const vPill = document.getElementById('villaStatusPill');
   vPill.textContent = (d.mockupVilla.status || 'at-risk').toUpperCase().replace('-', ' ');
   vPill.className = 'status-pill ' + (d.mockupVilla.status || 'at-risk');
@@ -1889,7 +2050,7 @@ function renderReport(data) {
   // Work Packages
   const wpBody = document.getElementById('wpBody');
   if (!d.workPackages || d.workPackages.length === 0) {
-    wpBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:12px">No work packages loaded</td></tr>`;
+    wpBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:12px">No work packages loaded</td></tr>`;
   } else {
     wpBody.innerHTML = d.workPackages.map(wp => {
       const pctVal = Math.round(clampPct(wp.pct));
@@ -1899,6 +2060,7 @@ function renderReport(data) {
         : statusCls === 'at-risk' ? 'amber'
         : 'red';
 
+      const delayMeta = delayHTML(wp.delay);
       return `<tr>
         <td class="pkg-name">${escapeHTML(wp.name)}</td>
         <td class="progress-cell">
@@ -1907,8 +2069,9 @@ function renderReport(data) {
             <span class="progress-val">${pctVal}%</span>
           </div>
         </td>
+        <td class="date-cell">${escapeHTML(wp.planned)}</td>
         <td class="date-cell">${escapeHTML(wp.forecast)}</td>
-        <td class="date-cell">${escapeHTML(wp.recovery)}</td>
+        <td class="delay-cell ${delayMeta.cls}">${delayMeta.text}</td>
         <td><span class="status-pill ${statusCls}">${statusText(statusCls)}</span></td>
       </tr>`;
     }).join('');
