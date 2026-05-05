@@ -51,10 +51,13 @@
 
 body {
   font-family: 'DM Sans', -apple-system, sans-serif;
-  background: var(--gray-50);
+  background:
+    radial-gradient(circle at top left, rgba(91,154,232,0.10) 0%, rgba(91,154,232,0.00) 28%),
+    radial-gradient(circle at top right, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.00) 22%),
+    linear-gradient(180deg, #F7FAFD 0%, #EEF4FA 100%);
   color: var(--gray-700);
   font-size: 11px;
-  line-height: 1.45;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -62,19 +65,30 @@ body {
    REPORT CONTAINER — A4 2-PAGE LAYOUT
    ═══════════════════════════════════════════════════════════════ */
 .report-wrapper {
-  max-width: 1100px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 18px;
 }
 
 .page {
   background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 28px 32px 24px;
-  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(11,25,41,0.08), 0 3px 10px rgba(11,25,41,0.05);
+  padding: 26px 32px 24px;
+  margin-bottom: 22px;
   position: relative;
   min-height: auto;
+  border: 1px solid rgba(46,90,136,0.10);
+  overflow: hidden;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--steel) 45%, var(--blue-light) 100%);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -254,6 +268,167 @@ body {
 .kpi-dot.amber { background: var(--amber); }
 .kpi-dot.green { background: var(--green); }
 
+
+.page-overline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--sky-pale);
+  border: 1px solid var(--sky);
+  color: var(--steel);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.semantic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.semantic-card {
+  background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 12px 12px 11px;
+  position: relative;
+  overflow: hidden;
+  min-height: 94px;
+}
+.semantic-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gray-300);
+}
+.semantic-card.health::before { background: linear-gradient(90deg, var(--green) 0%, #86EFAC 100%); }
+.semantic-card.delivery::before { background: linear-gradient(90deg, var(--amber) 0%, #FCD34D 100%); }
+.semantic-card.cost::before { background: linear-gradient(90deg, var(--steel) 0%, var(--blue-light) 100%); }
+.semantic-card.action::before { background: linear-gradient(90deg, var(--red) 0%, #F87171 100%); }
+.semantic-card .semantic-label {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gray-500);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.semantic-card .semantic-value {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--navy-deep);
+  margin-bottom: 5px;
+}
+.semantic-card .semantic-note {
+  font-size: 8.8px;
+  line-height: 1.45;
+  color: var(--gray-600);
+}
+
+.section-copy {
+  margin: -4px 0 10px 28px;
+  font-size: 8.6px;
+  color: var(--gray-500);
+  letter-spacing: 0.2px;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.kpi-card {
+  background: linear-gradient(180deg, var(--white) 0%, #FBFDFF 100%);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 10px 10px 8px;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: transparent;
+}
+.kpi-card.highlight::before { background: linear-gradient(90deg, var(--steel) 0%, var(--blue-light) 100%); }
+
+.gauge-container,
+.villa-summary,
+.mockup-card,
+.cost-card,
+.insight-box {
+  box-shadow: var(--shadow-sm);
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 10px;
+}
+.insight-panel {
+  background: rgba(255,255,255,0.76);
+  border: 1px solid rgba(46,90,136,0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.insight-panel.span-2 {
+  grid-column: span 2;
+}
+.insight-panel-title {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gray-500);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.insight-panel-body {
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+.insight-panel ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.insight-panel ul li {
+  position: relative;
+  padding-left: 12px;
+  margin-bottom: 3px;
+}
+.insight-panel ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--steel);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 900px) {
+  .semantic-grid { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr; }
+  .insight-panel.span-2 { grid-column: span 1; }
+  .section-copy { margin-left: 0; }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    SECTION TITLES
    ═══════════════════════════════════════════════════════════════ */
@@ -294,141 +469,16 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SCHEDULE GAUGE
+   PROJECT / MOCKUP PROGRESS CARDS
    ═══════════════════════════════════════════════════════════════ */
-.gauge-container {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px;
-  background: var(--gray-50);
-  border-radius: var(--radius);
-  border: 1px solid var(--gray-200);
-}
-
-.gauge-svg { width: 80px; height: 80px; flex-shrink: 0; }
-
-.gauge-info { flex: 1; }
-.gauge-info .gauge-title {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 6px;
-}
-.gauge-info .gauge-stat {
-  display: flex; justify-content: space-between;
-  font-size: 9.5px;
-  padding: 3px 0;
-  border-bottom: 1px solid var(--gray-200);
-  color: var(--gray-600);
-}
-.gauge-info .gauge-stat:last-child { border-bottom: none; }
-.gauge-info .gauge-stat strong { color: var(--navy-deep); font-weight: 600; }
-.gauge-info .gauge-stat .val-red { color: var(--red); font-weight: 700; }
-.gauge-info .gauge-stat .val-green { color: var(--green); font-weight: 700; }
-.gauge-info .gauge-stat .val-amber { color: var(--amber); font-weight: 700; }
-
-/* ═══════════════════════════════════════════════════════════════
-   MOCKUP VILLA & WORK PACKAGES
-   ═══════════════════════════════════════════════════════════════ */
-.villa-summary {
-  padding: 12px;
-  background: var(--gray-50);
-  border-radius: var(--radius);
-  border: 1px solid var(--gray-200);
-}
-
-.villa-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--gray-200);
-}
-.villa-header .villa-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-.villa-header .villa-status {
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.wp-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: 9px;
-}
-.wp-table th {
-  background: var(--navy);
-  color: var(--white);
-  padding: 5px 8px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-.wp-table th:first-child { border-radius: 5px 0 0 0; }
-.wp-table th:last-child { border-radius: 0 5px 0 0; }
-.wp-table td {
-  padding: 5px 8px;
-  border-bottom: 1px solid var(--gray-100);
-  color: var(--gray-700);
-  font-size: 9px;
-}
-.wp-table tr:nth-child(even) td { background: var(--gray-50); }
-.wp-table tr:last-child td { border-bottom: none; }
-.wp-table .pkg-name { font-weight: 600; color: var(--navy); }
-
-.progress-bar {
-  width: 60px; height: 5px;
-  background: var(--gray-200);
-  border-radius: 3px;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-.progress-bar .fill { height: 100%; border-radius: 3px; }
-.fill.green { background: var(--green); }
-.fill.amber { background: var(--amber); }
-.fill.red { background: var(--red); }
-.fill.blue { background: var(--blue); }
-
-.status-pill {
-  display: inline-block;
-  padding: 1px 7px;
-  border-radius: 8px;
-  font-size: 8px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-.status-pill.on-track { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.status-pill.delayed { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-.status-pill.at-risk { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-
-
-/* ═══════════════════════════════════════════════════════════════
-   MOCKUP VILLA CARD — VISUAL COMPLETE
-   ═══════════════════════════════════════════════════════════════ */
-.mockup-card {
+.progress-summary-card {
   padding: 12px;
   background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
   border-radius: var(--radius);
   border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
 }
-.mockup-card-top {
+.progress-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -437,106 +487,51 @@ body {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--gray-200);
 }
-.mockup-card-title-wrap { display:flex; flex-direction:column; gap:2px; }
-.mockup-card-title {
+.progress-card-title-wrap { display:flex; flex-direction:column; gap:2px; }
+.progress-card-title {
   font-size: 10px;
   font-weight: 700;
   color: var(--navy);
   text-transform: uppercase;
   letter-spacing: 0.7px;
 }
-.mockup-card-subtitle {
+.progress-card-subtitle {
   font-size: 8.5px;
   color: var(--gray-500);
 }
-.mockup-main {
+.progress-main {
   display: grid;
   grid-template-columns: 92px 1fr;
   gap: 12px;
   align-items: center;
 }
-.mockup-visual {
+.progress-visual {
   display:flex;
   align-items:center;
   justify-content:center;
 }
-.mockup-donut {
+.progress-donut {
   width: 84px;
   height: 84px;
 }
-.mockup-body { display:flex; flex-direction:column; gap:10px; }
-.mockup-progress-rows { display:flex; flex-direction:column; gap:8px; }
-.mockup-progress-row {
-  display:grid;
-  grid-template-columns: 64px 1fr 48px;
-  gap:8px;
-  align-items:center;
+.progress-info { display:flex; flex-direction:column; gap:6px; }
+.progress-stat {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size: 9.2px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-600);
 }
-.mockup-progress-row .label {
-  font-size:8.5px;
-  font-weight:600;
-  color:var(--gray-600);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
+.progress-stat:last-child { border-bottom:none; }
+.progress-stat strong {
+  color: var(--navy-deep);
+  font-weight: 700;
 }
-.mockup-track {
-  width:100%;
-  height:8px;
-  background:var(--gray-200);
-  border-radius:999px;
-  overflow:hidden;
-}
-.mockup-track-fill {
-  height:100%;
-  border-radius:999px;
-}
-.mockup-track-fill.planned { background: linear-gradient(90deg, var(--blue-light) 0%, var(--blue) 100%); }
-.mockup-track-fill.actual { background: linear-gradient(90deg, var(--amber) 0%, #F59E0B 100%); }
-.mockup-progress-row .value {
-  font-size:9px;
-  font-weight:700;
-  color:var(--navy-deep);
-  text-align:right;
-}
-.mockup-meta-grid {
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:8px;
-}
-.mockup-meta-item {
-  background: var(--white);
-  border:1px solid var(--gray-200);
-  border-radius:8px;
-  padding:8px;
-}
-.mockup-meta-item .meta-label {
-  font-size:7.8px;
-  color:var(--gray-500);
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  margin-bottom:3px;
-  font-weight:600;
-}
-.mockup-meta-item .meta-value {
-  font-size:9.5px;
-  font-weight:700;
-  color:var(--navy);
-  line-height:1.35;
-}
-.mockup-meta-item .meta-value.negative { color: var(--red); }
-.mockup-exception {
-  padding:8px 10px;
-  border-radius:8px;
-  border:1px solid var(--amber-border);
-  background:var(--amber-bg);
-  font-size:8.8px;
-  color:var(--gray-700);
-  line-height:1.45;
-}
-.mockup-exception strong { color: var(--navy); }
+.progress-stat strong.negative { color: var(--red); }
+.progress-stat strong.positive { color: var(--green); }
 @media screen and (max-width: 900px) {
-  .mockup-main { grid-template-columns: 1fr; }
-  .mockup-visual { justify-content:flex-start; }
+  .progress-main { grid-template-columns: 1fr; }
+  .progress-visual { justify-content:flex-start; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -942,7 +937,9 @@ body {
   }
   .page .section-title { margin-bottom: 8px; }
   .page .report-header { margin-bottom: 12px; padding-bottom: 10px; }
+  .page-overline { margin-bottom: 8px; }
   .page .kpi-grid { gap: 6px; margin-bottom: 12px; }
+  .semantic-grid { gap: 6px; margin-bottom: 12px; }
   .page .kpi-card { padding: 8px 8px 6px; }
   .page .two-col { gap: 12px; margin-bottom: 12px; }
   .page .timeline-item { padding: 6px 4px 12px; }
@@ -987,6 +984,8 @@ body {
        ═══════════════════════════════════════════════════════════ -->
   <div class="page" id="page1">
 
+    <div class="page-overline">01 · Project Performance Overview</div>
+
     <!-- HEADER -->
     <div class="report-header">
       <div class="header-left">
@@ -998,7 +997,7 @@ body {
       </div>
       <div class="header-right">
         <div class="header-meta">
-          <div>Report Date: <strong id="reportDate">—</strong></div>
+          <div>Report Date: <strong id="reportDate">02-May-2026</strong></div>
         </div>
         <button class="btn-refresh" id="btnRefresh" onclick="refreshData()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M1 4v6h6"/><path d="M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
@@ -1059,39 +1058,51 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
       Schedule Performance
     </div>
+    <div class="section-copy">Overall delivery position, completion status and forecast trajectory.</div>
 
     <div class="two-col">
-      <!-- OVERALL PROJECT GAUGE -->
-      <div class="gauge-container" id="overallGauge">
-        <svg class="gauge-svg" viewBox="0 0 100 100" id="gaugeOverall">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#E2E8F0" stroke-width="8" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)"/>
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#3A7BD5" stroke-width="8" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" id="gaugeArc" stroke-linecap="round"/>
-          <text x="50" y="48" text-anchor="middle" font-size="16" font-weight="700" fill="#0B1929" font-family="DM Sans" id="gaugeLabel">—</text>
-          <text x="50" y="60" text-anchor="middle" font-size="7" fill="#94A3B8" font-family="DM Sans">ACTUAL %</text>
-        </svg>
-        <div class="gauge-info">
-          <div class="gauge-title">Overall Project</div>
-          <div class="gauge-stat"><span>Planned %</span><strong id="gPlanned">—</strong></div>
-          <div class="gauge-stat"><span>Actual %</span><strong id="gActual">—</strong></div>
-          <div class="gauge-stat"><span>SPI</span><strong id="gSPI">—</strong></div>
-          <div class="gauge-stat"><span>Forecast Finish</span><strong id="gForecast">—</strong></div>
-          <div class="gauge-stat"><span>Variance</span><span class="val-red" id="gVariance">—</span></div>
+      <!-- OVERALL PROJECT PROGRESS -->
+      <div class="progress-summary-card" id="overallProgressCard">
+        <div class="progress-card-top">
+          <div class="progress-card-title-wrap">
+            <span class="progress-card-title">Overall Project</span>
+            <span class="progress-card-subtitle">Overall completion position</span>
+          </div>
+          <span class="status-pill delayed" id="projectStatusPill">DELAYED</span>
+        </div>
+
+        <div class="progress-main">
+          <div class="progress-visual">
+            <svg class="progress-donut" viewBox="0 0 100 100" id="gaugeOverall">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#E2E8F0" stroke-width="8"></circle>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#3A7BD5" stroke-width="8" stroke-linecap="round"
+                transform="rotate(-90 50 50)" stroke-dasharray="0 238.76" id="gaugeArc"></circle>
+              <text x="50" y="46" text-anchor="middle" font-size="18" font-weight="700" fill="#0B1929" font-family="DM Sans" id="gaugeLabel">—</text>
+              <text x="50" y="61" text-anchor="middle" font-size="8" fill="#64748B" font-family="DM Sans">COMPLETE</text>
+            </svg>
+          </div>
+          <div class="progress-info">
+            <div class="progress-stat"><span>Planned %</span><strong id="gPlanned">—</strong></div>
+            <div class="progress-stat"><span>Actual %</span><strong id="gActual">—</strong></div>
+            <div class="progress-stat"><span>Forecast Finish</span><strong id="gForecast">—</strong></div>
+            <div class="progress-stat"><span>Variance</span><strong id="gVariance">—</strong></div>
+          </div>
         </div>
       </div>
 
-      <!-- MOCKUP VILLA SUMMARY -->
-      <div class="mockup-card" id="villaSummary">
-        <div class="mockup-card-top">
-          <div class="mockup-card-title-wrap">
-            <span class="mockup-card-title">Mockup Villa</span>
-            <span class="mockup-card-subtitle">Focused view of current mockup completion</span>
+      <!-- MOCKUP VILLA PROGRESS -->
+      <div class="progress-summary-card" id="villaSummary">
+        <div class="progress-card-top">
+          <div class="progress-card-title-wrap">
+            <span class="progress-card-title">Mockup Villa</span>
+            <span class="progress-card-subtitle">Mockup completion position</span>
           </div>
-          <span class="villa-status status-pill delayed" id="villaStatusPill">DELAYED</span>
+          <span class="status-pill delayed" id="villaStatusPill">DELAYED</span>
         </div>
 
-        <div class="mockup-main">
-          <div class="mockup-visual">
-            <svg class="mockup-donut" viewBox="0 0 100 100" id="mockupDonut">
+        <div class="progress-main">
+          <div class="progress-visual">
+            <svg class="progress-donut" viewBox="0 0 100 100" id="mockupDonut">
               <circle cx="50" cy="50" r="38" fill="none" stroke="#E2E8F0" stroke-width="8"></circle>
               <circle cx="50" cy="50" r="38" fill="none" stroke="#D97706" stroke-width="8" stroke-linecap="round"
                 transform="rotate(-90 50 50)" stroke-dasharray="0 238.76" id="mockupArc"></circle>
@@ -1099,35 +1110,11 @@ body {
               <text x="50" y="61" text-anchor="middle" font-size="8" fill="#64748B" font-family="DM Sans">COMPLETE</text>
             </svg>
           </div>
-
-          <div class="mockup-body">
-            <div class="mockup-progress-rows">
-              <div class="mockup-progress-row">
-                <span class="label">Planned</span>
-                <div class="mockup-track"><div class="mockup-track-fill planned" id="vPlannedBar" style="width:0%"></div></div>
-                <span class="value" id="vPlanned">—</span>
-              </div>
-              <div class="mockup-progress-row">
-                <span class="label">Actual</span>
-                <div class="mockup-track"><div class="mockup-track-fill actual" id="vActualBar" style="width:0%"></div></div>
-                <span class="value" id="vActual">—</span>
-              </div>
-            </div>
-
-            <div class="mockup-meta-grid">
-              <div class="mockup-meta-item">
-                <div class="meta-label">Completion Gap</div>
-                <div class="meta-value negative" id="vVariance">—</div>
-              </div>
-              <div class="mockup-meta-item">
-                <div class="meta-label">Forecast Finish</div>
-                <div class="meta-value" id="vForecast">—</div>
-              </div>
-            </div>
-
-            <div class="mockup-exception" id="vExceptionText">
-              <strong>Exception:</strong> Progress is tracking below plan and requires acceleration.
-            </div>
+          <div class="progress-info">
+            <div class="progress-stat"><span>Planned %</span><strong id="vPlanned">—</strong></div>
+            <div class="progress-stat"><span>Actual %</span><strong id="vActual">—</strong></div>
+            <div class="progress-stat"><span>Forecast Finish</span><strong id="vForecast">—</strong></div>
+            <div class="progress-stat"><span>Variance</span><strong id="vVariance">—</strong></div>
           </div>
         </div>
       </div>
@@ -1138,8 +1125,16 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
       Mockup Villa — Key Work Packages
     </div>
+    <div class="section-copy">Execution focus showing package-level progress and forecast recovery dates.</div>
 
     <table class="wp-table" id="wpTable">
+      <colgroup>
+        <col style="width:32%">
+        <col style="width:18%">
+        <col style="width:17%">
+        <col style="width:17%">
+        <col style="width:16%">
+      </colgroup>
       <thead>
         <tr>
           <th>Work Package</th>
@@ -1159,6 +1154,7 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
       Key Milestones
     </div>
+    <div class="section-copy">Baseline versus forecast milestones with delivery status and slippage signals.</div>
 
     <div class="timeline-legend" id="timelineLegend">
       <span style="font-size:8.5px;font-weight:600;color:var(--navy);letter-spacing:0.3px">Project Timeline & Milestones</span>
@@ -1176,7 +1172,7 @@ body {
 
     <div class="page-footer">
       <span class="confidential">Confidential — For Internal Use Only</span>
-      <span>MOZN AL SAFA · DAR Al Riyadh Group · Page 1 of 2</span>
+      <span>MOZN AL SAFA · Page 1 of 2</span>
     </div>
   </div>
 
@@ -1184,6 +1180,8 @@ body {
        PAGE 2 — COST, VARIANCE, ACTIONS
        ═══════════════════════════════════════════════════════════ -->
   <div class="page" id="page2">
+
+    <div class="page-overline">02 · Commercial Position & Management Actions</div>
 
     <div class="report-header" style="padding-bottom:10px;margin-bottom:14px;border-bottom:2px solid var(--navy)">
       <div class="header-left">
@@ -1194,7 +1192,7 @@ body {
         </div>
       </div>
       <div class="header-meta">
-        <div>Report Date: <strong id="reportDate2">—</strong></div>
+        <div>Report Date: <strong id="reportDate2">02-May-2026</strong></div>
       </div>
     </div>
 
@@ -1203,6 +1201,7 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
       Cost Performance Summary
     </div>
+    <div class="section-copy">High-level budget control, commitment exposure and cost efficiency.</div>
 
     <div class="cost-grid" id="costGrid">
       <div class="cost-card">
@@ -1234,6 +1233,7 @@ body {
           <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
           Cost Breakdown by Group
         </div>
+        <div class="section-copy" style="margin-left:0">Grouped commercial position across the main cost packages.</div>
         <table class="cost-breakdown" id="costBreakdownTable">
           <colgroup>
             <col style="width:28%">
@@ -1264,6 +1264,7 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
       Critical Mitigation Actions
     </div>
+    <div class="section-copy">Focused management action log for the highest-priority risks and issues.</div>
 
     <table class="actions-table" id="actionsTable">
       <thead>
@@ -1285,6 +1286,7 @@ body {
       <span class="section-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
       Executive Insight
     </div>
+    <div class="section-copy">Concise narrative for management review, changes, alerts and decisions.</div>
 
     <div class="insight-box" id="insightBox">
       <strong>Status Summary:</strong> Loading…
@@ -1292,7 +1294,7 @@ body {
 
     <div class="page-footer" style="margin-top:14px">
       <span class="confidential">Confidential — For Internal Use Only</span>
-      <span>MOZN AL SAFA · DAR Al Riyadh Group · Page 2 of 2</span>
+      <span>MOZN AL SAFA · Page 2 of 2</span>
     </div>
   </div>
 </div>
@@ -1465,6 +1467,51 @@ function buildLookup(data) {
   return map;
 }
 
+
+function clampPct(val) {
+  const n = safeNum(val, 0);
+  if (isNaN(n)) return 0;
+  return Math.max(0, Math.min(100, n));
+}
+
+function normalizeStatus(raw, pct = 0) {
+  const s = String(raw || '').toLowerCase().trim().replace(/_/g, '-').replace(/\s+/g, '-');
+  if (['completed','complete','done','closed','finished'].includes(s)) return 'completed';
+  if (['on-track','ontrack','ok','healthy'].includes(s)) return 'on-track';
+  if (['in-progress','progress','ongoing','active'].includes(s)) return 'in-progress';
+  if (['at-risk','risk','watchlist','caution'].includes(s)) return 'at-risk';
+  if (['delayed','delay','behind','critical','late'].includes(s)) return 'delayed';
+  if (['upcoming','not-started','notstarted','planned'].includes(s)) return 'upcoming';
+  const p = clampPct(pct);
+  if (p >= 95) return 'completed';
+  if (p >= 60) return 'in-progress';
+  if (p >= 30) return 'at-risk';
+  return 'delayed';
+}
+
+function statusText(status) {
+  const map = {
+    'completed':'COMPLETED',
+    'on-track':'ON TRACK',
+    'in-progress':'IN PROGRESS',
+    'at-risk':'AT RISK',
+    'delayed':'DELAYED',
+    'upcoming':'UPCOMING',
+    'neutral':'—'
+  };
+  return map[status] || String(status || '—').replace(/-/g, ' ').toUpperCase();
+}
+
+function escapeHTML(val) {
+  return String(val ?? '—').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[ch]));
+}
+
 /* ─────────────────────────────────────────────────────────
    TRANSFORM ALL SHEETS INTO REPORT DATA MODEL
    ───────────────────────────────────────────────────────── */
@@ -1483,7 +1530,7 @@ function transformAllSheets(sheets) {
   /* ── Sheet1 → project + mockupVilla + cost ── */
   const project = {
     name:             get('Project Name', 'MOZN AL SAFA — 22 Villas, Riyadh'),
-    reportDate:       get('Report Date', get('Report Period', '—')), 
+    reportDate:       '02-May-2026', 
     startDate:        get('Project Start Date', '—'),
     plannedFinish:    get('Planned Finish Date', '—'),
     forecastFinish:   get('Forecast Finish Date', '—'),
@@ -1520,23 +1567,25 @@ function transformAllSheets(sheets) {
   if (sheets.wp && sheets.wp.length > 0) {
     workPackages = sheets.wp
       .filter(r => {
-        const name = r['Work Package'] || r[Object.keys(r)[0]] || '';
-        return name && !name.startsWith('🏗');
+        const firstKey = Object.keys(r)[0];
+        const name = r['Work Package'] || r[firstKey] || '';
+        return name && !String(name).startsWith('🏗');
       })
       .map(r => {
         const keys = Object.keys(r);
-        const pctRaw = r['Progress %'] || r[keys[1]] || '0';
-        let pct = safeNum(pctRaw);
+        const pctRaw = String(r['Progress %'] ?? r['Progress'] ?? r[keys[1]] ?? '0');
+        let pct = safeNum(pctRaw, 0);
         // Google Sheets exports percentages as decimals (0.72) if formatted as %
         if (pct > 0 && pct <= 1 && !pctRaw.includes('%')) pct = pct * 100;
-        // Also handle "100%" string
-        if (pctRaw.includes('%')) pct = safeNum(pctRaw);
+        pct = Math.round(clampPct(pct));
+        const rawStatus = r['Status'] || r[keys[4]] || '';
+
         return {
           name:     r['Work Package'] || r[keys[0]] || '—',
-          pct:      Math.round(pct),
+          pct:      pct,
           forecast: r['Forecast Finish'] || r[keys[2]] || '—',
           recovery: r['Recovery Finish'] || r[keys[3]] || '—',
-          status:   (r['Status'] || r[keys[4]] || 'delayed').toLowerCase().replace(/\s/g, '-')
+          status:   normalizeStatus(rawStatus, pct)
         };
       });
   }
@@ -1750,6 +1799,12 @@ function transformAllSheets(sheets) {
 /* ─────────────────────────────────────────────────────────
    UI RENDERING LAYER
    ───────────────────────────────────────────────────────── */
+function shortText(val, maxLen = 56) {
+  const t = String(val || '').replace(/\s+/g, ' ').trim();
+  if (!t) return '—';
+  return t.length > maxLen ? t.slice(0, maxLen - 1) + '…' : t;
+}
+
 function renderReport(data) {
   const d = data;
 
@@ -1770,6 +1825,9 @@ function renderReport(data) {
     : `Project is <strong>on track</strong>. All key indicators within acceptable range.`;
 
   // KPI Cards
+  const plannedMockup = safeNum(d.mockupVilla.plannedPct, 0);
+  const actualMockup = safeNum(d.mockupVilla.actualPct, 0);
+  const mockupGap = +(actualMockup - plannedMockup).toFixed(1);
   document.getElementById('kpiStart').textContent = d.project.startDate;
   document.getElementById('kpiPlannedFinish').textContent = d.project.plannedFinish;
   document.getElementById('kpiForecastFinish').textContent = d.project.forecastFinish;
@@ -1792,24 +1850,25 @@ function renderReport(data) {
   const delStat = getStatusLabel(d.project.spi);
   document.getElementById('kpiDelayStatus').innerHTML = `<span class="kpi-dot ${delStat.cls === 'on-track' ? 'green' : delStat.cls === 'at-risk' ? 'amber' : 'red'}"></span>${delStat.text}`;
 
-  // Overall Gauge
+  // Overall Project Progress
   const pct = d.project.actualPct;
-  const arcLen = (pct / 100) * 188.5;
+  const projectCirc = 238.76;
+  const arcLen = Math.max(0, Math.min(pct, 100)) / 100 * projectCirc;
   const gaugeArc = document.getElementById('gaugeArc');
-  gaugeArc.setAttribute('stroke-dasharray', `${arcLen} 251.3`);
-  gaugeArc.setAttribute('stroke', pct >= 95 ? '#16A34A' : pct >= 80 ? '#3A7BD5' : '#D97706');
+  gaugeArc.setAttribute('stroke-dasharray', `${arcLen.toFixed(2)} ${projectCirc}`);
+  gaugeArc.setAttribute('stroke', pct >= d.project.plannedPct ? '#16A34A' : pct >= d.project.plannedPct * 0.9 ? '#D97706' : '#DC2626');
   document.getElementById('gaugeLabel').textContent = pct.toFixed(1) + '%';
   document.getElementById('gPlanned').textContent = d.project.plannedPct.toFixed(1) + '%';
   document.getElementById('gActual').textContent = d.project.actualPct.toFixed(1) + '%';
-  document.getElementById('gSPI').textContent = d.project.spi.toFixed(2);
-  document.getElementById('gSPI').className = spiVal >= 0.95 ? '' : 'val-red';
   document.getElementById('gForecast').textContent = d.project.forecastFinish;
-  document.getElementById('gVariance').textContent = d.project.scheduleVariance + ' days';
+  const gVariance = document.getElementById('gVariance');
+  gVariance.textContent = `${d.project.scheduleVariance > 0 ? '+' : ''}${d.project.scheduleVariance} days`;
+  gVariance.className = d.project.scheduleVariance < 0 ? 'negative' : (d.project.scheduleVariance > 0 ? 'positive' : '');
+  const projPill = document.getElementById('projectStatusPill');
+  projPill.textContent = delStat.text.toUpperCase();
+  projPill.className = 'status-pill ' + delStat.cls;
 
-  // Mockup Villa — redesigned visual card
-  const plannedMockup = safeNum(d.mockupVilla.plannedPct, 0);
-  const actualMockup = safeNum(d.mockupVilla.actualPct, 0);
-  const mockupGap = +(actualMockup - plannedMockup).toFixed(1);
+  // Mockup Villa — mirrored progress card
   const mockupArc = document.getElementById('mockupArc');
   const mockupCirc = 238.76;
   const mockupArcLen = Math.max(0, Math.min(actualMockup, 100)) / 100 * mockupCirc;
@@ -1819,41 +1878,41 @@ function renderReport(data) {
   document.getElementById('mockupPct').textContent = actualMockup.toFixed(1) + '%';
   document.getElementById('vPlanned').textContent = plannedMockup.toFixed(1) + '%';
   document.getElementById('vActual').textContent = actualMockup.toFixed(1) + '%';
-  document.getElementById('vPlannedBar').style.width = Math.max(0, Math.min(plannedMockup, 100)) + '%';
-  document.getElementById('vActualBar').style.width = Math.max(0, Math.min(actualMockup, 100)) + '%';
-  document.getElementById('vVariance').textContent = `${mockupGap > 0 ? '+' : ''}${mockupGap.toFixed(1)}% vs plan`;
-  document.getElementById('vVariance').className = 'meta-value ' + (mockupGap < 0 ? 'negative' : '');
   document.getElementById('vForecast').textContent = d.mockupVilla.forecastFinish || '—';
-  const exceptionText = document.getElementById('vExceptionText');
-  if (mockupGap < 0) {
-    exceptionText.innerHTML = `<strong>Exception:</strong> Mockup villa is ${Math.abs(mockupGap).toFixed(1)}% below plan. Recovery finish is ${d.mockupVilla.recoveryFinish || 'under review'}.`;
-    exceptionText.style.background = 'var(--red-bg)';
-    exceptionText.style.borderColor = 'var(--red-border)';
-  } else if (mockupGap === 0) {
-    exceptionText.innerHTML = `<strong>Update:</strong> Mockup villa is aligned with plan. Focus on maintaining current productivity.`;
-    exceptionText.style.background = 'var(--sky-pale)';
-    exceptionText.style.borderColor = 'var(--sky)';
-  } else {
-    exceptionText.innerHTML = `<strong>Positive variance:</strong> Mockup villa is ${mockupGap.toFixed(1)}% ahead of plan.`;
-    exceptionText.style.background = 'var(--green-bg)';
-    exceptionText.style.borderColor = 'var(--green-border)';
-  }
+  const vVariance = document.getElementById('vVariance');
+  vVariance.textContent = `${mockupGap > 0 ? '+' : ''}${mockupGap.toFixed(1)}%`;
+  vVariance.className = mockupGap < 0 ? 'negative' : (mockupGap > 0 ? 'positive' : '');
   const vPill = document.getElementById('villaStatusPill');
   vPill.textContent = (d.mockupVilla.status || 'at-risk').toUpperCase().replace('-', ' ');
-  vPill.className = 'villa-status status-pill ' + (d.mockupVilla.status || 'at-risk');
+  vPill.className = 'status-pill ' + (d.mockupVilla.status || 'at-risk');
 
   // Work Packages
   const wpBody = document.getElementById('wpBody');
-  wpBody.innerHTML = d.workPackages.map(wp => {
-    const barCls = wp.pct >= 90 ? 'green' : wp.pct >= 60 ? 'blue' : wp.pct >= 30 ? 'amber' : 'red';
-    return `<tr>
-      <td class="pkg-name">${wp.name}</td>
-      <td><div class="progress-bar"><div class="fill ${barCls}" style="width:${wp.pct}%"></div></div>${wp.pct}%</td>
-      <td>${wp.forecast}</td>
-      <td>${wp.recovery}</td>
-      <td><span class="status-pill ${wp.status}">${wp.status.replace('-', ' ').toUpperCase()}</span></td>
-    </tr>`;
-  }).join('');
+  if (!d.workPackages || d.workPackages.length === 0) {
+    wpBody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:12px">No work packages loaded</td></tr>`;
+  } else {
+    wpBody.innerHTML = d.workPackages.map(wp => {
+      const pctVal = Math.round(clampPct(wp.pct));
+      const statusCls = normalizeStatus(wp.status, pctVal);
+      const barCls = statusCls === 'completed' ? 'green'
+        : statusCls === 'in-progress' || statusCls === 'on-track' ? 'blue'
+        : statusCls === 'at-risk' ? 'amber'
+        : 'red';
+
+      return `<tr>
+        <td class="pkg-name">${escapeHTML(wp.name)}</td>
+        <td class="progress-cell">
+          <div class="progress-wrap">
+            <div class="progress-bar"><div class="fill ${barCls}" style="width:${pctVal}%"></div></div>
+            <span class="progress-val">${pctVal}%</span>
+          </div>
+        </td>
+        <td class="date-cell">${escapeHTML(wp.forecast)}</td>
+        <td class="date-cell">${escapeHTML(wp.recovery)}</td>
+        <td><span class="status-pill ${statusCls}">${statusText(statusCls)}</span></td>
+      </tr>`;
+    }).join('');
+  }
 
   // Milestones Timeline — Enhanced with status rings & progress track
   const timeline = document.getElementById('timelineCompact');
@@ -1967,12 +2026,28 @@ function renderReport(data) {
 
   // Executive Insight
   document.getElementById('insightBox').innerHTML = `
-    <strong>Status Summary:</strong> ${d.insight.summary}<br><br>
-    <strong>Changes Since Last Period:</strong> ${d.insight.changes}
-    <br><br><strong>Top Alerts:</strong>
-    <ul>${d.insight.alerts.map(a => `<li>${a}</li>`).join('')}</ul>
-    <br><strong>Key Decisions Required:</strong>
-    <ul>${d.insight.decisions.map(dec => `<li>${dec}</li>`).join('')}</ul>
+    <div class="insight-grid">
+      <div class="insight-panel span-2">
+        <div class="insight-panel-title">Status Summary</div>
+        <div class="insight-panel-body">${d.insight.summary}</div>
+      </div>
+      <div class="insight-panel">
+        <div class="insight-panel-title">Change Since Last Period</div>
+        <div class="insight-panel-body">${d.insight.changes}</div>
+      </div>
+      <div class="insight-panel">
+        <div class="insight-panel-title">Top Alerts</div>
+        <div class="insight-panel-body">
+          <ul>${(d.insight.alerts && d.insight.alerts.length ? d.insight.alerts : ['No alerts reported']).map(a => `<li>${a}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="insight-panel span-2">
+        <div class="insight-panel-title">Key Decisions Required</div>
+        <div class="insight-panel-body">
+          <ul>${(d.insight.decisions && d.insight.decisions.length ? d.insight.decisions : ['No decisions logged']).map(dec => `<li>${dec}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>
   `;
 }
 
